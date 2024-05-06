@@ -50,16 +50,18 @@ nav {
 }
 
 .block {
+    display: inline-flex;
     height: 250px;
     width: 400px;
-    background-color: green;
+    border-radius: 20px;
     margin: 20px;
-    display: inline-flex;
     justify-content: space-around;
     align-items: center;
     font-size: xx-large;
-    border-radius: 20px;
+
+    background-color: green;
     background-size: cover;
+    background-position: center;
 }
 
 .add {
