@@ -1,0 +1,25 @@
+body {
+    background-color: #bdffff;
+    margin: 0%;
+}
+
+.menu {
+    height: 50px;
+    width: 100%;
+    background-color: green;
+}
+
+.block {
+    height: 100px;
+    width: 30%;
+    background-color: green;
+    margin: 20px;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: xx-large;
+}
+
+.add {
+    background-color: greenyellow;
+}
