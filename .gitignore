@@ -1,0 +1,8 @@
+# Ignore the .idea directory
+.idea/
+
+# Ignore any compiled Python bytecode
+__pycache__
+
+# Ignore any virtual environment directory
+venv/

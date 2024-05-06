@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse, FileResponse, SimpleCookie, HttpResponseRedirect
 from django.template import loader
 from PIL import Image
 from io import BytesIO
-from django.http import FileResponse
 
 from .models import Guest, Organization, Meeting
 
@@ -14,6 +13,27 @@ def index(request):
 
 def authorization(request):
     return HttpResponse(open("mindup/templates/authorization.html", encoding="utf8"))
+
+
+def login(request):
+
+
+
+    email = request.POST['email']
+    password = request.POST['password']
+    dick = list(Guest.objects.filter(email=email))
+    if len(dick) == 0:
+        return HttpResponse("suck")
+    if dick[0].password != password:
+        return HttpResponse("my response")
+
+    cookie = SimpleCookie()
+    cookie['mindup_email'] = email
+    cookie['mindup_email']['max-age'] = 3600
+
+    response = HttpResponseRedirect("/mindup/groups")
+    response['Set-Cookie'] = cookie.output(header='')
+    return response
 
 
 def styles_css(request):
