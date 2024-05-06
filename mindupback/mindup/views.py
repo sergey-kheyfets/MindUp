@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, FileResponse, SimpleCookie, HttpResponseRedirect
+from django.http import HttpResponse, FileResponse, SimpleCookie, HttpResponseRedirect, JsonResponse
 from django.template import loader
 from PIL import Image
 from io import BytesIO
@@ -7,25 +7,31 @@ from io import BytesIO
 from .models import Guest, Organization, Meeting
 
 
+def get_user_from_cookie(request):
+    user = Guest.objects.filter(email=request.COOKIES['mindup_email'])
+    return user[0]
+
+
 def index(request):
     return HttpResponse(open("mindup/templates/index.html", encoding="utf8"))
 
 
-def authorization(request):
+def authorization_template(request):
     return HttpResponse(open("mindup/templates/authorization.html", encoding="utf8"))
 
 
-def login(request):
+def groups_template(request):
+    return HttpResponse(open("mindup/templates/groups.html", encoding="utf8"))
 
 
-
+def login_post(request):
     email = request.POST['email']
     password = request.POST['password']
     dick = list(Guest.objects.filter(email=email))
     if len(dick) == 0:
-        return HttpResponse("suck")
+        return HttpResponse("account doesn't found")
     if dick[0].password != password:
-        return HttpResponse("my response")
+        return HttpResponse("incorrect password")
 
     cookie = SimpleCookie()
     cookie['mindup_email'] = email
@@ -34,6 +40,38 @@ def login(request):
     response = HttpResponseRedirect("/mindup/groups")
     response['Set-Cookie'] = cookie.output(header='')
     return response
+
+
+def my_groups(request):
+    return all_groups(request)
+
+
+def all_groups(request):
+    return JsonResponse({'result': [organization.to_dict() for organization in Organization.objects.all()]})
+
+
+def my_account(request):
+    data = [get_user_from_cookie(request).to_dict()]
+    return JsonResponse({'result': data})
+
+
+def all_guests(request):
+    data = [guest.to_dict() for guest in Guest.objects.all()]
+    return JsonResponse({'result': data})
+
+
+def all_meetings(request):
+    data = [meeting.to_dict() for meeting in Meeting.objects.all()]
+    return JsonResponse({'result': data})
+
+
+def groups_meetings(request, group_id):
+    data = [meeting.to_dict() for meeting in Meeting.objects.filter(organization_id=group_id)]
+    return JsonResponse({'result': data})
+
+
+
+
 
 
 def styles_css(request):
