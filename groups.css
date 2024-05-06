@@ -1,6 +1,6 @@
 body {
     background-color: #bdffff;
-    margin: 0%;
+    margin: 0 auto;
 }
 
 .menu {
@@ -9,15 +9,35 @@ body {
     background-color: green;
 }
 
+.groups-wrapper {
+    display: flex;
+    margin: 0 auto;
+}
+
+.groups {
+    display: grid;
+    grid-column-gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+    /*justify-content: flex-start;*/
+    /*align-content: space-around;*/
+}
+
 .block {
-    height: 100px;
-    width: 30%;
+    height: 250px;
+    width: 400px;
+    border-radius: 20px;
     background-color: green;
     margin: 20px;
     display: inline-flex;
     justify-content: space-around;
     align-items: center;
     font-size: xx-large;
+}
+
+.block:last-child {
+    margin-right: auto;
 }
 
 .add {
