@@ -5,17 +5,33 @@
     <title>Группы</title>
     <link rel="stylesheet" href="groups.css">
 </head>
+<header>
+    <div class="menu">
+        <a href="/" class="logo">MindUp</a>
+        <nav сlass="navigationMenu">
+            <a href="/" class="groups">Группы</a>
+            <a href="/" class="meetings">Все встречи</a>
+            <div class="search">
+                <form>
+                    <button type="submit" class="searchButton">WIP</button>
+                    <input type="text" placeholder="Поиск">
+                </form>
+            </div>
+        </nav>
+        <a href="/" class="profile">Профиль</a>
+    </div>
+</header>
 <body>
-    <div class="menu"></div>
     <div class="groups-wrapper">
         <div class="groups">
-            <div class="block add">+</div>
-            <div class="block group">ФИИТ</div>
-            <div class="block group">Контур</div>
-            <div class="block group">ШАД</div>
-            <div class="block group" style="display: none">ШАД</div>
-            <div class="block group" style="display: none">ШАД</div>
-            <div class="block group" style="display: none">ШАД</div>
+            <div class="block add">Добавить группу</div>
+            <div class="block" style="background-image: url('Blog_inner_pic.png')">
+                <div class="groupTitle">
+                    ФИИТ
+                </div>
+            </div>
+            <div class="block">Контур</div>
+            <div class="block">ШАД</div>
         </div>
     </div>
 <script src="groups.js"></script>

@@ -7,5 +7,6 @@ window.addEventListener('resize', () => {
     const colsCount = Math.floor(screenWidth * 0.9 / blockWidth);
     console.log(colsCount)
     const groups = document.querySelector('.groups');
+    console.log(groups.style.gridTemplateColumns)
     groups.style.gridTemplateColumns = `repeat(${colsCount}, 1fr)`;
 })
