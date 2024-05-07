@@ -38,7 +38,7 @@ nav {
 
 .groups-wrapper {
     display: flex;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 .groups {
@@ -62,11 +62,25 @@ nav {
     background-color: green;
     background-size: cover;
     background-position: center;
+    background-image: linear-gradient(to right, #f7ffeb, #e5ffba);
+}
+
+.block h2 {
+    background-color: white;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    padding: 10px;
+    
+    /*Это рофл */
+    font-family: "Times New Roman";
+    font-weight: normal;
 }
 
 .add {
     background-color: rgba(255, 255, 255, 0.8);
-    align-items: center;
+    background-image: none;
 }
 
 
@@ -102,11 +116,3 @@ left: 0;
 cursor: pointer;
 }
 
-
-.groupTitle {
-    background-color: white;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 0 50px 20px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-}
