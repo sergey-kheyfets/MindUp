@@ -38,7 +38,7 @@ nav {
 
 .groups-wrapper {
     display: flex;
-    margin: 20px auto;
+    margin: 40px auto;
 }
 
 .groups {
@@ -46,15 +46,15 @@ nav {
     grid-column-gap: 8px;
     flex-wrap: wrap;
     margin: 0 auto;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .block {
     display: inline-flex;
-    height: 250px;
-    width: 400px;
+    height: 200px;
+    width: 300px;
     border-radius: 20px;
-    margin: 20px;
+    margin: 10px;
     justify-content: space-around;
     align-items: center;
     font-size: xx-large;
@@ -63,6 +63,7 @@ nav {
     background-size: cover;
     background-position: center;
     background-image: linear-gradient(to right, #f7ffeb, #e5ffba);
+    box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.2);
 }
 
 .block h2 {
@@ -71,15 +72,15 @@ nav {
     text-align: center;
     box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    padding: 10px;
-    
-    /*Это рофл */
-    font-family: "Times New Roman";
+    padding: 10px 20px;
+
+    font-family: Fira, sans-serif;
+    font-size: 0.8em;
     font-weight: normal;
 }
 
 .add {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.7);
     background-image: none;
 }
 
