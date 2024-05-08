@@ -32,20 +32,36 @@ header a {
     text-decoration: none;
 }
 
+.search {
+    gap: 0;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
 header input {
     border-radius: 5px;
     border: hidden;
-    padding: 0 0 4px 21px;
-    width: 200px;
+    padding: 0 20px 4px 42px;
+    width: 150px;
     text-align: center;
+    transition: all 0.3s ease;
 }
 
 header input::placeholder {
     text-align: center;
+    padding-right: 30px;
 }
 
 header input:focus::placeholder {
     opacity: 0;
+}
+
+header input:focus {
+    width: 350px;
 }
 
 .searchButton {
@@ -62,20 +78,11 @@ header input, .searchButton {
     background: transparent;
 }
 
-.search {
-    gap: 0;
-    position: relative;
-    width: 250px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 10px;
-}
-
 .profile-svg {
     width: 25px;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
     .search {
         display: none;
     }
