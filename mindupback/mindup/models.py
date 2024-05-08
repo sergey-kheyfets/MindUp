@@ -24,7 +24,7 @@ class Organization(models.Model):
     creator = models.ForeignKey(Guest, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=10000)
-    icon = models.URLField()
+    icon = models.CharField(max_length=200)
 
     def to_dict(self):
         return {'creator': self.creator.id,
@@ -39,7 +39,7 @@ class Meeting(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=10000)
-    picture = models.URLField()
+    picture = models.CharField(max_length=200)
     place_text = models.CharField(max_length=10000)
     place_link = models.URLField(max_length=10000)
     event_time = models.DateTimeField("event time")
