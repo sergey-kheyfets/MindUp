@@ -16,14 +16,6 @@ def index(request):
     return HttpResponse(open("mindup/templates/index.html", encoding="utf8"))
 
 
-def authorization_template(request):
-    return HttpResponse(open("mindup/templates/authorization.html", encoding="utf8"))
-
-
-def groups_template(request):
-    return HttpResponse(open("mindup/templates/groups.html", encoding="utf8"))
-
-
 def login_post(request):
     email = request.POST['email']
     password = request.POST['password']
@@ -98,14 +90,7 @@ def get_folder_static(request, folder_name, file_name, file_extension):
 
 def get_img(request, file_name, file_extension):
     image_path = f"mindup/static/{file_name}.{file_extension}"  # Путь к вашей картинке
-    image = Image.open(image_path)
-    # Image._show(image)
-    # Создаем байтовый объект для хранения изображения
-    image_byte_array = BytesIO()
-    image.save(image_byte_array, format=upper(file_extension))
-
-    # Возвращаем ответ с содержимым изображения
-    return HttpResponse(image_byte_array.getvalue(), content_type='image/png')
+    return img_from_path(image_path, file_extension)
 
 
 def get_folder_img(request, folder_name, file_name, file_extension):
@@ -114,23 +99,15 @@ def get_folder_img(request, folder_name, file_name, file_extension):
                             content_type="image/svg+xml")
 
     image_path = f"mindup/static/{folder_name}/{file_name}.{file_extension}"  # Путь к вашей картинке
+    return img_from_path(image_path, file_extension)
+
+
+def img_from_path(image_path, file_extension):
     image = Image.open(image_path)
     # Image._show(image)
     # Создаем байтовый объект для хранения изображения
     image_byte_array = BytesIO()
-    image.save(image_byte_array, format='PNG')
-
-    return HttpResponse(image_byte_array.getvalue(), content_type='image/png')
-
-
-def img(request):
-    image_path = "mindup/static/pngwing.com.png"  # Путь к вашей картинке
-    image = Image.open(image_path)
-    # Image._show(image)
-    # Создаем байтовый объект для хранения изображения
-    image_byte_array = BytesIO()
-    image.save(image_byte_array, format='PNG')
+    image.save(image_byte_array, format=file_extension.upper())
 
     # Возвращаем ответ с содержимым изображения
-    print(image_byte_array.getvalue())
     return HttpResponse(image_byte_array.getvalue(), content_type='image/png')
