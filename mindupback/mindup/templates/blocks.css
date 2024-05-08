@@ -15,21 +15,32 @@
 
 .block {
     display: inline-flex;
-    height: 200px;
-    width: 300px;
+    height: 199px;
+    width: 299px;
     border-radius: 20px;
     margin: 10px;
     justify-content: space-around;
     align-items: center;
     font-size: xx-large;
 
-    background-color: green;
     background-size: cover;
     background-position: center;
     background-image: linear-gradient(to right, #f7ffeb, #e5ffba);
     box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.2);
 
     transition: all 0.2s ease;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.block-background {
+    position: fixed;
+    height: 200px;
+    width: 300px;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    z-index: 2;
 }
 
 .block:hover {
@@ -43,6 +54,7 @@
     box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     padding: 10px 20px;
+    z-index: 3;
 
     font-size: 0.8em;
     font-weight: normal;
