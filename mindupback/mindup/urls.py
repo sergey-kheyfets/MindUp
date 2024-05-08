@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -15,6 +15,9 @@ urlpatterns = [
     path('api/all_meetings', views.all_meetings),
 
     path("api/group/<int:group_id>/meetings", views.groups_meetings),
+
+    re_path(r"^(?P<file_name>[a-zA-Z]+).css", views.get_css, name="get_css"),
+    re_path(r"^(?P<file_name>[a-zA-Z]+)", views.get_html_template, name="get_html_template"),
 
     path("styles.css", views.styles_css, name="styles_css"),
     path("authorization.css", views.authorization_css, name="authorization_css"),

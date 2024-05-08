@@ -70,8 +70,14 @@ def groups_meetings(request, group_id):
     return JsonResponse({'result': data})
 
 
+def get_html_template(request, file_name):
+    print(file_name)
+    return HttpResponse(open(f"mindup/templates/{file_name}.html", encoding="utf8"))
 
 
+def get_css(request, file_name):
+    print(file_name)
+    return HttpResponse(open(f"mindup/static/{file_name}.css", encoding="utf8"), content_type="text/css")
 
 
 def styles_css(request):
@@ -89,7 +95,7 @@ def groups_css(request):
 def img(request):
     image_path = "mindup/static/pngwing.com.png"  # Путь к вашей картинке
     image = Image.open(image_path)
-    #Image._show(image)
+    # Image._show(image)
     # Создаем байтовый объект для хранения изображения
     image_byte_array = BytesIO()
     image.save(image_byte_array, format='PNG')
