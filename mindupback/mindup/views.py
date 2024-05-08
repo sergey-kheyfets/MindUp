@@ -35,7 +35,9 @@ def login_post(request):
 
 
 def my_groups(request):
-    return all_groups(request)
+    me = Guest.objects.get(id=1)
+    return JsonResponse({'result':
+        [organization.to_dict() for organization in Organization.objects.filter(members=me)]})
 
 
 def all_groups(request):
