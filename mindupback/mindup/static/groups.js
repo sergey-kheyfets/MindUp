@@ -35,7 +35,10 @@ function createGroupHTML(groupJson) {
 
     const blockBackgroundElement = document.createElement('div');
     blockBackgroundElement.classList.add('block-background');
-    blockBackgroundElement.style.backgroundImage = `url('${icon}')`;
+    if (icon !== '-') {
+        blockBackgroundElement.style.backgroundImage = `url('${icon}')`;
+    }
+
 
     const h2Element = document.createElement('h2');
     h2Element.innerHTML = title;
