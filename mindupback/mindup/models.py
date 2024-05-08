@@ -23,8 +23,8 @@ class Guest(models.Model):
 class Organization(models.Model):
     creator = models.ForeignKey(Guest, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=10000)
-    icon = models.CharField(max_length=200)
+    description = models.CharField(max_length=10000, default="-")
+    icon = models.CharField(max_length=200, default="-")
 
     def to_dict(self):
         return {'creator': self.creator.id,
@@ -38,10 +38,10 @@ class Meeting(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=10000)
-    picture = models.CharField(max_length=200)
-    place_text = models.CharField(max_length=10000)
-    place_link = models.URLField(max_length=10000)
+    description = models.CharField(max_length=10000, default="-")
+    picture = models.CharField(max_length=200, default="-")
+    place_text = models.CharField(max_length=10000, default="-")
+    place_link = models.URLField(max_length=10000, default="-")
     event_time = models.DateTimeField("event time")
 
     def to_dict(self):
