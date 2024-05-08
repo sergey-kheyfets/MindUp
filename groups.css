@@ -20,21 +20,59 @@ input {
     padding: 0;
 }
 
-.menu {
+header {
+    display: inline-flex;
+    justify-content: space-between;
     height: 50px;
     width: 100%;
+    padding: 0 20px;
     background: linear-gradient(to right, #F1FFDB, #E5FFBA);
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 10px;
     box-sizing: border-box;
     align-items: center;
+    font-family: "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
 }
 
-nav {
+.profile-svg {
+    width: 25px;
+}
+
+.menuGroup {
     display: flex;
     gap: 10px;
 }
+
+.search{
+    gap: 0;
+    position: relative;
+    width: 300px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+input.placeholder {
+    text-align: center;
+}
+
+input, .searchButton {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+input {
+    width: 100%;
+    padding-left: 42px;
+}
+
+.searchButton {
+    width: 42px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
 
 .groups-wrapper {
     display: flex;
@@ -47,6 +85,7 @@ nav {
     flex-wrap: wrap;
     margin: 0 auto;
     grid-template-columns: repeat(4, 1fr);
+    font-family: Fira, sans-serif;
 }
 
 .block {
@@ -74,46 +113,29 @@ nav {
     overflow: hidden;
     padding: 10px 20px;
 
-    font-family: Fira, sans-serif;
     font-size: 0.8em;
     font-weight: normal;
 }
 
 .add {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.6);
     background-image: none;
+    font-size: 1.5em;
 }
 
+@media screen and (max-width: 1200px) {
+    .search {
+        display: none;
+    }
 
-.search{
-    gap: 0;
-    position: relative;
-    width: 300px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 10px;
+    .menuGroup.profile p {
+        display: none;
+        color: grey;
+    }
 }
 
-input.placeholder {
-    text-align: center;
+@media screen and (max-width: 600px) {
+    .logo {
+        display: none;
+    }
 }
-
-input, .searchButton {
-border: none;
-outline: none;
-background: transparent;
-}
-
-input {
-width: 100%;
-padding-left: 42px;
-}
-
-.searchButton {
-width: 42px;
-position: absolute;
-top: 0;
-left: 0;
-cursor: pointer;
-}
-
