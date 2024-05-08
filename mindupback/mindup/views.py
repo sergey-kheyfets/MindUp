@@ -78,13 +78,22 @@ def get_folder_html_template(request, folder_name, file_name):
     return HttpResponse(open(f"mindup/templates/{folder_name}/{file_name}.html", encoding="utf8"))
 
 
-def get_css(request, file_name):
-    return HttpResponse(open(f"mindup/static/{file_name}.css", encoding="utf8"), content_type="text/css")
+def get_static(request, file_name, file_extension):
+    if file_extension == "js":
+        content_type = "javascript"
+    else:
+        content_type = file_extension
+    return HttpResponse(open(f"mindup/static/{file_name}.{file_extension}", encoding="utf8"),
+                        content_type=f"text/{content_type}")
 
 
-def get_folder_css(request, folder_name, file_name):
-    print(folder_name, file_name)
-    return HttpResponse(open(f"mindup/static/{folder_name}/{file_name}.css", encoding="utf8"), content_type="text/css")
+def get_folder_static(request, folder_name, file_name, file_extension):
+    if file_extension == "js":
+        content_type = "javascript"
+    else:
+        content_type = file_extension
+    return HttpResponse(open(f"mindup/static/{folder_name}/{file_name}.{file_extension}", encoding="utf8"),
+                        content_type=f"text/{content_type}")
 
 
 def get_img(request, file_name, file_extension):
