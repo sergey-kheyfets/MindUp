@@ -71,25 +71,47 @@ def groups_meetings(request, group_id):
 
 
 def get_html_template(request, file_name):
-    print(file_name)
     return HttpResponse(open(f"mindup/templates/{file_name}.html", encoding="utf8"))
 
 
+def get_folder_html_template(request, folder_name, file_name):
+    return HttpResponse(open(f"mindup/templates/{folder_name}/{file_name}.html", encoding="utf8"))
+
+
 def get_css(request, file_name):
-    print(file_name)
     return HttpResponse(open(f"mindup/static/{file_name}.css", encoding="utf8"), content_type="text/css")
 
 
-def styles_css(request):
-    return HttpResponse(open("mindup/static/styles.css", encoding="utf8"), content_type="text/css")
+def get_folder_css(request, folder_name, file_name):
+    print(folder_name, file_name)
+    return HttpResponse(open(f"mindup/static/{folder_name}/{file_name}.css", encoding="utf8"), content_type="text/css")
 
 
-def authorization_css(request):
-    return HttpResponse(open("mindup/static/authorization.css", encoding="utf8"), content_type="text/css")
+def get_img(request, file_name, file_extension):
+    image_path = f"mindup/static/{file_name}.{file_extension}"  # Путь к вашей картинке
+    image = Image.open(image_path)
+    # Image._show(image)
+    # Создаем байтовый объект для хранения изображения
+    image_byte_array = BytesIO()
+    image.save(image_byte_array, format=upper(file_extension))
+
+    # Возвращаем ответ с содержимым изображения
+    return HttpResponse(image_byte_array.getvalue(), content_type='image/png')
 
 
-def groups_css(request):
-    return HttpResponse(open("mindup/static/groups.css", encoding="utf8"), content_type="text/css")
+def get_folder_img(request, folder_name, file_name, file_extension):
+    if file_extension == 'svg':
+        return HttpResponse(open(f"mindup/static/{folder_name}/{file_name}.svg", encoding="utf8"),
+                            content_type="image/svg+xml")
+
+    image_path = f"mindup/static/{folder_name}/{file_name}.{file_extension}"  # Путь к вашей картинке
+    image = Image.open(image_path)
+    # Image._show(image)
+    # Создаем байтовый объект для хранения изображения
+    image_byte_array = BytesIO()
+    image.save(image_byte_array, format='PNG')
+
+    return HttpResponse(image_byte_array.getvalue(), content_type='image/png')
 
 
 def img(request):
