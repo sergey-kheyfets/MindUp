@@ -4,12 +4,49 @@
     <meta charset="UTF-8">
     <title>Группы</title>
     <link rel="stylesheet" href="groups.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="blocks.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 </head>
 <body>
-    <div class="menu"></div>
-    <div class="block add">+</div>
-    <div class="block group">ФИИТ</div>
-    <div class="block group">Контур</div>
-    <div class="block group">ШАД</div>
+    <header>
+        <div class="menuGroup">
+            <a href="/brawlstars" class="logo">MindUp</a>
+        </div>
+        <div class="menuGroup">
+            <a href="/brawlstars" class="groupsLink">Группы</a>
+            <a href="/brawlstars" class="meetings">Все встречи</a>
+            <div class="search">
+                <form>
+                    <label>
+                        <input type="text" placeholder="Поиск">
+                    </label>
+                    <button type="submit" class="searchButton">
+                        <img src="site_images/search.svg" alt="search" width="21px">
+                    </button>
+                </form>
+            </div>
+        </div>
+        <a href="/brawlstars" class="menuGroup profile">
+            <img src="site_images/profile.svg" alt="Profile" class="profile-svg"></img>
+            <p>Профиль</p>
+        </a>
+    </header>
+    <div class="background-container"></div>
+    <div class="blocks-wrapper">
+        <div class="blocks">
+            <div class="block add">Добавить группу</div>
+            <div class="block" style="background-image: url('groups_images/fiit.png')">
+                <h2>ФИИТ</h2>
+            </div>
+            <div class="block">
+                <h2>СКБ Контур</h2>
+            </div>
+            <div class="block" style="background-image: url('groups_images/shad.jpeg')">
+                <h2>ШАД</h2>
+            </div>
+        </div>
+    </div>
+<script src="groups.js"></script>
 </body>
 </html>

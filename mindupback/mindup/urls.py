@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -16,8 +16,17 @@ urlpatterns = [
 
     path("api/group/<int:group_id>/meetings", views.groups_meetings),
 
-    path("styles.css", views.styles_css, name="styles_css"),
-    path("authorization.css", views.authorization_css, name="authorization_css"),
-    path("authorization.css", views.groups_css, name="groups_css"),
+    re_path(r"^(?P<file_name>[a-zA-Z]+).css", views.get_css, name="get_css"),
+    re_path(r"^(?P<folder_name>([a-zA-Z]+)_styles)/(?P<file_name>[a-zA-Z]+).css",
+            views.get_folder_css, name="get_folder_css"),
+
+    re_path(r"^(?P<file_name>[a-zA-Z]+).html", views.get_html_template, name="get_html_template"),
+    re_path(r"^(?P<folder_name>[a-zA-Z]+_html)/(?P<file_name>[a-zA-Z]+).html",
+            views.get_folder_html_template, name="get_html_template"),
+
+    re_path(r"^(?P<file_name>[a-zA-Z_]+).(?P<file_extension>png|jpg|jpeg|svg)", views.get_img, name="get_img"),
+    re_path(r"^(?P<folder_name>[a-zA-Z]+_images)/(?P<file_name>[a-zA-Z_]+).(?P<file_extension>png|jpg|jpeg|svg)",
+            views.get_folder_img, name="get_folder_img"),
+
     path("pngwing.com.png", views.img)
 ]
