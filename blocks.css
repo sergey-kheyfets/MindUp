@@ -28,6 +28,12 @@
     background-position: center;
     background-image: linear-gradient(to right, #f7ffeb, #e5ffba);
     box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.2);
+
+    transition: all 0.2s ease;
+}
+
+.block:hover {
+    box-shadow: 0 0 30px 10px rgba(49, 49, 49, 0.82);
 }
 
 .block h2 {
