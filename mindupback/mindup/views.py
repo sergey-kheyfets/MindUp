@@ -4,8 +4,7 @@ from django.http import HttpResponse, FileResponse, SimpleCookie,\
 from django.template import loader
 from django.utils import timezone
 
-from PIL import Image
-from io import BytesIO
+
 from . import extensions
 from .models import Guest, Organization, Meeting
 
@@ -98,50 +97,33 @@ def groups_meetings(request, group_id):
     return JsonResponse({'result': data})
 
 
-def get_html_template(request, file_name):
-    return HttpResponse(open(f"mindup/templates/{file_name}.html", encoding="utf8"))
+def send_meeting(request, organization_id):
+    me = get_user_from_cookie(request)
+    title = request.POST['title']
+    description = request.POST['description']
+    picture = request.POST['picture']
+    place_text = request.POST['place_text']
+    place_link = request.POST['place_link']
+    event_time = request.POST['event_time']
+    max_members_number = request.POST['max_members_number']
+    d = Meeting(
+        creator=me,
+        organization=organization_id,
+        title=title,
+        description=description,
+        picture=picture,
+        place_text=place_text,
+        place_link=place_link,
+        event_time=event_time,
+        max_members_number=max_members_number
+    )
+    d.save()
+    return HttpResponseRedirect(f"mindup/group/{organization_id}")
 
 
-def get_folder_html_template(request, folder_name, file_name):
-    return HttpResponse(open(f"mindup/templates/{folder_name}/{file_name}.html", encoding="utf8"))
-
-
-def get_static(request, file_name, file_extension):
-    content_type = "javascript" if file_extension == "js" else file_extension
-    static_path = f"mindup/static/{file_name}.{file_extension}"
-
-    return HttpResponse(open(static_path, encoding="utf8"), content_type=f"text/{content_type}")
-
-
-def get_folder_static(request, folder_name, file_name, file_extension):
-    static_path = f"mindup/static/{folder_name}/{file_name}.{file_extension}"
-    content_type = "javascript" if file_extension == "js" else file_extension
-
-    return HttpResponse(open(static_path, encoding="utf8"), content_type=f"text/{content_type}")
-
-
-def get_img(request, file_name, file_extension):
-    image_path = f"mindup/static/{file_name}.{file_extension}"
-    if file_extension == 'svg':
-        return HttpResponse(open(image_path, encoding="utf8"), content_type="image/svg+xml")
-
-    return img_from_path(image_path, file_extension)
-
-
-def get_folder_img(request, folder_name, file_name, file_extension):
-    image_path = f"mindup/static/{folder_name}/{file_name}.{file_extension}"
-    if file_extension == 'svg':
-        return HttpResponse(open(image_path, encoding="utf8"), content_type="image/svg+xml")
-
-    return img_from_path(image_path, file_extension)
-
-
-def img_from_path(image_path, file_extension):
-    image = Image.open(image_path)
-    # Image._show(image)
-    # Создаем байтовый объект для хранения изображения
-    image_byte_array = BytesIO()
-    image.save(image_byte_array, format=file_extension.upper())
-
-    # Возвращаем ответ с содержимым изображения
-    return HttpResponse(image_byte_array.getvalue(), content_type='image/png')
+def signup_meeting(request, group_id, meeting_id):
+    me = get_user_from_cookie(request)
+    meeting = Meeting.objects.get(id=meeting_id)
+    meeting.members.add(me)
+    meeting.save()
+    return JsonResponse({'result': 'success'})
