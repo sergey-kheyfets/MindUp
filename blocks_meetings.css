@@ -1,6 +1,5 @@
 .block .block-title {
     text-align: left;
-    padding: 20px 20px 0 20px;
     z-index: 3;
     font-size: 0.7em;
     font-weight: normal;
@@ -9,9 +8,86 @@
 .block {
     display: inline-block;
     align-items: normal;
+    padding: 20px;
 }
 
 .block.add {
     display: flex;
     align-items: center;
+}
+
+.block-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.meeting-info-container p {
+    display: inline-block;
+    font-size: 0.5em;
+}
+
+.block-info img {
+    display: inline-block;
+    width: 25px;
+}
+
+.icon-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.datetime {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.date, .time {
+    margin: 0;
+}
+
+.place-wrapper p {
+    margin: 0;
+}
+
+.place-wrapper,
+.datetime-wrapper {
+    /* Сюда же автора */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tags-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.4em;
+}
+
+.tags-wrapper a {
+    /* Логичнее туда кнопку впихнуть */
+    font-style: italic;
+    text-align: center;
+    color: #026228;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tag {
+    max-width: min-content;
+    margin: 3px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background-color: #026228;
+    color: #FFFFFF;
+
+    font-weight: lighter;
 }
