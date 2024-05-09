@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/all_meetings', views.all_meetings),
 
     path("api/group/<int:group_id>/meetings", views.groups_meetings),
+    path("api/group/<int:group_id>/meeting/<int:meeting_id>/guests", views.meeting_members),
 
     re_path(r"^(?P<file_name>[a-zA-Z_0-9]+).(?P<file_extension>css|js)", views.get_static, name="get_static"),
     re_path(r"^(?P<folder_name>([a-zA-Z_0-9]+)_styles)/(?P<file_name>[a-zA-Z_0-9]+).(?P<file_extension>css|js)",
