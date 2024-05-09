@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Встречи</title>
+    <link rel="stylesheet" href="meetings.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="blocks.css">
+    <link rel="stylesheet" href="blocks_meetings.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+</head>
+<body>
+<header>
+    <div class="menuGroup">
+        <a href="/brawlstars" class="logo">MindUp</a>
+    </div>
+    <div class="menuGroup">
+        <a href="/brawlstars" class="groupsLink">Группы</a>
+        <a href="/brawlstars" class="meetings">Все встречи</a>
+        <div class="search">
+            <form>
+                <label>
+                    <input type="text" placeholder="Поиск">
+                </label>
+                <button type="submit" class="searchButton">
+                    <img src="site_images/search.svg" alt="search" width="21px">
+                </button>
+            </form>
+        </div>
+    </div>
+    <a href="/brawlstars" class="menuGroup profile">
+        <img src="site_images/profile.svg" alt="Profile" class="profile-svg"></img>
+        <p>Профиль</p>
+    </a>
+</header>
+<div class="background-container">
+    <div class="background-dimmer"></div>
+</div>
+<div class="blocks-wrapper">
+    <div class="blocks">
+        <div class="block add">Добавить встречу</div>
+        <div class="block">
+            <div class="block-title">Базы данных, разбор д/з</div>
+            <div class="block-info">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="block_controller.js"></script>
+<script src="meetings.js"></script>
+</body>
+</html>

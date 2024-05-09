@@ -1,0 +1,17 @@
+.block .block-title {
+    text-align: left;
+    padding: 20px 20px 0 20px;
+    z-index: 3;
+    font-size: 0.7em;
+    font-weight: normal;
+}
+
+.block {
+    display: inline-block;
+    align-items: normal;
+}
+
+.block.add {
+    display: flex;
+    align-items: center;
+}
