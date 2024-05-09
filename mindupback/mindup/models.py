@@ -1,4 +1,5 @@
 from django.db import models
+from . import extensions
 
 
 class Guest(models.Model):
@@ -19,6 +20,9 @@ class Guest(models.Model):
             'pub_date': self.pub_date.strftime('%Y-%m-%d %H:%M:%S')
         }
 
+    def check_password(self, string):
+        return extensions.get_password_hash(string) == self.password
+
 
 class Organization(models.Model):
     creator = models.ForeignKey(Guest, on_delete=models.SET_DEFAULT, default=1)
@@ -28,7 +32,7 @@ class Organization(models.Model):
     members = models.ManyToManyField(Guest, related_name='organization_members_set')
 
     def to_dict(self):
-        return {'creator': self.creator.id,
+        return {'creator_id': self.creator.id,
                 'title': self.title,
                 'description': self.description,
                 'icon': self.icon}
@@ -48,8 +52,9 @@ class Meeting(models.Model):
 
     def to_dict(self):
         return {
-            'creator': self.creator.id,
-            'organization': self.organization.id,
+            'creator_id': self.creator.id,
+            'creator_dict': self.creator.to_dict(),
+            'organization_id': self.organization.id,
             'title': self.title,
             'description': self.description,
             'picture': self.picture,
