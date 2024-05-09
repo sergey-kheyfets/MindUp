@@ -33,6 +33,14 @@ def login_post(request):
     response['Set-Cookie'] = cookie.output(header='')
     return response
 
+def register_post(request):
+    user_name = request.POST('userName')
+    email = request.POST('email')
+    password = request.POST("password")
+    new_guest = Guest(name=user_name, email=email, password=password)
+    #new_guest.save()
+    response = HttpResponseRedirect("/mindup/authorisation")
+    return response
 
 def my_groups(request):
     me = Guest.objects.get(id=1)
