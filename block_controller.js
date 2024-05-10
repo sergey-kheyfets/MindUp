@@ -1,6 +1,10 @@
 function setGrid() {
     const blocks = document.querySelector('.blocks').querySelectorAll('.block');
-    const blockWidth = 300;
+    const title = document.querySelector('title').textContent;
+    let blockWidth = 300;
+    if (title === 'Встречи') {
+        blockWidth = 340;
+    }
     const screenWidth = window.innerWidth;
     let colsCount = Math.floor(screenWidth * 0.9 / blockWidth);
     colsCount = Math.min(colsCount, blocks.length);
