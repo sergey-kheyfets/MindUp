@@ -6,6 +6,7 @@ class Guest(models.Model):
     name = models.CharField(max_length=50, default="Ilya")
     sur_name = models.CharField(max_length=50, default="Rybin")
     last_name = models.CharField(max_length=50, default="Vladislavovich")
+    description = models.CharField(max_length=10000, default="-")
     email = models.EmailField(max_length=200)
     password = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
@@ -16,6 +17,7 @@ class Guest(models.Model):
             'name': self.name,
             'sur_name': self.sur_name,
             'last_name': self.last_name,
+            'description': self.description,
             'email': self.email,
             'password': self.password,
             'pub_date': self.pub_date.strftime('%Y-%m-%d %H:%M:%S')
