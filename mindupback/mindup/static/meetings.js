@@ -6,15 +6,6 @@ function tagSearching(element) {
 
 setGrid();
 
-function sendRequest(url) {
-    return fetch(url).then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Request failed');
-    });
-}
-
 async function getMeetings() {
     const resp = await sendRequest('/mindup/api/all_meetings');
     return resp.result;
