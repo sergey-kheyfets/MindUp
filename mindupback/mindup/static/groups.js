@@ -1,12 +1,3 @@
-function sendRequest(url) {
-    return fetch(url).then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Request failed');
-    });
-}
-
 async function getGroups() {
     const resp = await sendRequest('/mindup/api/all_groups');
     return resp.result;
