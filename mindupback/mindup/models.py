@@ -32,7 +32,7 @@ class Organization(models.Model):
     description = models.CharField(max_length=10000, default="-")
     icon = models.CharField(max_length=200, default="-")
 
-    members = models.ManyToManyField(Guest, related_name='organization_members_set')
+    members = models.ManyToManyField(Guest, related_name='organization_members_set', blank=True)
 
     def to_dict(self, guest=None):
         return {'id': self.id,
@@ -66,8 +66,8 @@ class Meeting(models.Model):
     place_link = models.URLField(max_length=10000, default="-")
     event_time = models.DateTimeField("event time")
     max_members_number = models.IntegerField(default=0)
-    members = models.ManyToManyField(Guest, related_name='meeting_members_set')
-    tags = models.ManyToManyField(MeetingTag, related_name='meeting_tags_set')
+    members = models.ManyToManyField(Guest, related_name='meeting_members_set', blank=True)
+    tags = models.ManyToManyField(MeetingTag, related_name='meeting_tags_set', blank=True)
 
     def to_dict(self, guest=None):
         return {
