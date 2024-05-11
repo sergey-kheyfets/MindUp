@@ -14,14 +14,14 @@
             <a href="/brawlstars" class="logo">MindUp</a>
         </div>
         <div class="menuGroup">
-            <a href="/brawlstars" class="groupsLink">Группы</a>
-            <a href="/brawlstars" class="meetings">Все встречи</a>
+            <a href="groups.html" class="groupsLink">Группы</a>
+            <a href="meetings.html" class="meetings">Все встречи</a>
             <div class="search">
                 <form>
                     <label>
-                        <input type="text" placeholder="Поиск">
+                        <input type="text" placeholder="Поиск" id="searchInput" onkeypress="handleKeyPress(event)">
                     </label>
-                    <button type="submit" class="searchButton">
+                    <button type="button" class="searchButton" onclick="search()">
                         <img src="site_images/search.svg" alt="search" width="21px">
                     </button>
                 </form>
@@ -35,9 +35,11 @@
     <div class="background-container"></div>
     <div class="blocks-wrapper">
         <div class="blocks">
-            <div class="block add">Добавить группу</div>
+            <div class="block group add">Добавить группу</div>
         </div>
     </div>
+<script src="header_controller.js"></script>
+<script src="block_controller.js"></script>
 <script src="groups.js"></script>
 </body>
 </html>

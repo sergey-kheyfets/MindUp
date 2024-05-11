@@ -24,7 +24,7 @@ def me(request):
 
 
 def index(request):
-    return HttpResponse(open("mindup/templates/index.html", encoding="utf8"))
+    return HttpResponse(open("mindup/templates/authorisation.html", encoding="utf8"))
 
 
 def login_post(request):
