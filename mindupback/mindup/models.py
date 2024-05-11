@@ -34,14 +34,16 @@ class Organization(models.Model):
 
     members = models.ManyToManyField(Guest, related_name='organization_members_set')
 
-    def to_dict(self):
+    def to_dict(self, guest=None):
         return {'id': self.id,
                 'creator_id': self.creator.id,
                 'creator_dict': self.creator.to_dict(),
                 'title': self.title,
                 'description': self.description,
                 'icon': self.icon,
-                'api_url': f"/mindup/api/group/{self.id}/meetings"}
+                'api_url': f"/mindup/api/group/{self.id}/meetings",
+                'is_me_member': False if guest is None else len(self.members.filter(id=guest.id)) > 0,
+        }
 
 
 class MeetingTag(models.Model):

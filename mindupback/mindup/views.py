@@ -10,9 +10,16 @@ from .models import Guest, Organization, Meeting
 
 
 def get_user_from_cookie(request):
-    user = Guest.objects.filter(email=request.COOKIES['mindup_email'])[0]
+    users = Guest.objects.filter(email=request.COOKIES['mindup_email'])
+    if len(users) == 0:
+        return None
+    user = users[0]
     if user.check_password(request.COOKIES['mindup_password']):
         return user
+
+
+def me(request):
+    return JsonResponse(get_user_from_cookie(request).to_dict())
 
 
 def index(request):
@@ -63,7 +70,8 @@ def my_groups(request):
 
 
 def all_groups(request):
-    return JsonResponse({'result': [organization.to_dict() for organization in Organization.objects.all()]})
+    me = get_user_from_cookie(request)
+    return JsonResponse({'result': [organization.to_dict(me) for organization in Organization.objects.all()]})
 
 
 def my_account(request):

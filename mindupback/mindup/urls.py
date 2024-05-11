@@ -10,6 +10,7 @@ urlpatterns = [
     path("api/login", views.login_post, name="login"),
     path("api/register", views.register_post, name="register"),
 
+    path("api/me", views.me),
     path("api/my_groups", views.my_groups),
     path("api/all_groups", views.all_groups),
     path("api/my_account", views.my_account),
