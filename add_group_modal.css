@@ -1,0 +1,25 @@
+.add-group-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.link__form{
+    width: 50vh;
+    height: auto;
+    background-color: #EFFFD5;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    padding: 10px;
+    gap: 10px;
+}
+input {
+    width: 100%;
+    border-style: none;
+    border-radius: 5px;
+}
+
+input::placeholder{
+    text-align: center;
+}

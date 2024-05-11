@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="groups.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="blocks.css">
+    <link rel="stylesheet" href="add_group_modal.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 </head>
 <body>
@@ -47,6 +48,29 @@
                 <div class="block-background" style="background-image: url('groups_images/shad.jpeg')"></div>
                 <h2>ШАД</h2>
             </div>
+        </div>
+    </div>
+    <div class="add-group-modal">
+        <form action="addgroup" method="post" class="link__form">
+            Присоединитесь к группе по реферальной ссылке
+            <input type="text" name="link" required placeholder="Введите ссылку">
+            <button type="submit" class="add__group__button">
+                Присоединиться
+            </button>
+        </form>
+        <div class="create-group-block">
+            Создайте свою группу
+            <form action="createGroup" method="post" class="creation__form">
+                <input type="text" name="group_name" required placeholder="Название группы">
+                <img src="upload.svg" alt="загрузка файла" id="upload__img">
+                <label id="up__load__label">
+                    Изображение в формате JPEG, PNG или BMP до 20 мегабайт
+                    <input type="text">
+                </label>
+                <button type="submit" class="add__group__button">
+                    Создать
+                </button>
+            </form> 
         </div>
     </div>
 <script src="groups.js"></script>
