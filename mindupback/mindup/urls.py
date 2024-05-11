@@ -10,6 +10,7 @@ urlpatterns = [
     path("api/login", views.login_post, name="login"),
     path("api/register", views.register_post, name="register"),
 
+    path("api/me", views.me),
     path("api/my_groups", views.my_groups),
     path("api/all_groups", views.all_groups),
     path("api/my_account", views.my_account),
@@ -20,6 +21,7 @@ urlpatterns = [
     path("api/group/<int:group_id>/meeting/<int:meeting_id>/guests", views.meeting_members),
 
     path('api/group/<int:group_id>/<int:meeting_id>/signup', views.signup_meeting),
+    path('api/group/<int:group_id>/<int:meeting_id>/unsignup', views.unsignup_meeting),
 
 
     re_path(r"^(?P<file_name>[a-zA-Z_0-9]+).(?P<file_extension>css|js)", file_views.get_static, name="get_static"),
