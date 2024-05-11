@@ -1,5 +1,6 @@
 .block {
     display: inline-block;
+    position: relative;
     align-items: normal;
     padding: 20px;
 }
@@ -7,6 +8,14 @@
 .block.add {
     display: flex;
     align-items: center;
+}
+
+.meeting-status {
+    position: absolute;
+    /*filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));*/
+    top: 13px;
+    right: 15px;
+    width: 30px;
 }
 
 .block-content {
