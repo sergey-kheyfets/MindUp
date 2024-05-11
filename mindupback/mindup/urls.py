@@ -9,6 +9,7 @@ urlpatterns = [
 
     path("api/login", views.login_post, name="login"),
     path("api/register", views.register_post, name="register"),
+    path("api/send_meeting", views.send_meeting, name="send_meeting"),
 
     path("api/me", views.me),
     path("api/my_groups", views.my_groups),
