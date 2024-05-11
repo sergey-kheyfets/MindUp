@@ -20,6 +20,7 @@ urlpatterns = [
     path("api/group/<int:group_id>/meeting/<int:meeting_id>/guests", views.meeting_members),
 
     path('api/group/<int:group_id>/<int:meeting_id>/signup', views.signup_meeting),
+    path('api/group/<int:group_id>/<int:meeting_id>/unsignup', views.unsignup_meeting),
 
 
     re_path(r"^(?P<file_name>[a-zA-Z_0-9]+).(?P<file_extension>css|js)", file_views.get_static, name="get_static"),

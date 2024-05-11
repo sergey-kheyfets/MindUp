@@ -1,2 +1,4 @@
 *.idea*
 *__pycache__*
+mindupback/mindup/__pycache__*
+*.pyc

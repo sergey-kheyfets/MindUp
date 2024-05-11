@@ -40,7 +40,17 @@ class Organization(models.Model):
                 'creator_dict': self.creator.to_dict(),
                 'title': self.title,
                 'description': self.description,
-                'icon': self.icon}
+                'icon': self.icon,
+                'api_url': f"/mindup/api/group/{self.id}/meetings"}
+
+
+class MeetingTag(models.Model):
+    title = models.CharField(max_length=200)
+
+    def to_dict(self):
+        return {
+            'title': self.title,
+        }
 
 
 class Meeting(models.Model):
@@ -55,8 +65,9 @@ class Meeting(models.Model):
     event_time = models.DateTimeField("event time")
     max_members_number = models.IntegerField(default=0)
     members = models.ManyToManyField(Guest, related_name='meeting_members_set')
+    tags = models.ManyToManyField(MeetingTag, related_name='meeting_tags_set')
 
-    def to_dict(self):
+    def to_dict(self, guest=None):
         return {
             'creator_id': self.creator.id,
             'creator_dict': self.creator.to_dict(),
@@ -67,5 +78,7 @@ class Meeting(models.Model):
             'picture': self.picture,
             'place_text': self.place_text,
             'place_link': self.place_link,
-            'event_time': self.event_time.strftime('%Y-%m-%d %H:%M:%S')
+            'event_time': self.event_time.strftime('%Y-%m-%d %H:%M:%S'),
+            'tags': [tag.to_dict()['title'] for tag in self.tags.all()],
+            'is_me_member': False if guest is None else len(self.members.filter(id=guest.id)) > 0,
         }

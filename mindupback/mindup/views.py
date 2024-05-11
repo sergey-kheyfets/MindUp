@@ -82,18 +82,20 @@ def meeting_members(request, group_id, meeting_id):
 
 
 def all_meetings(request):
-    data = [meeting.to_dict() for meeting in Meeting.objects.all()]
+    guest = get_user_from_cookie(request)
+    data = [meeting.to_dict(guest) for meeting in Meeting.objects.all()]
     return JsonResponse({'result': data})
 
 
 def my_meetings(request):
-    me = get_user_from_cookie(request)
+    guest = get_user_from_cookie(request)
     return JsonResponse({'result':
-        [meeting.to_dict() for meeting in Meeting.objects.filter(members=me)]})
+        [meeting.to_dict() for meeting in Meeting.objects.filter(members=guest)]})
 
 
 def groups_meetings(request, group_id):
-    data = [meeting.to_dict() for meeting in Meeting.objects.filter(organization_id=group_id)]
+    guest = get_user_from_cookie(request)
+    data = [meeting.to_dict(guest) for meeting in Meeting.objects.filter(organization_id=group_id)]
     return JsonResponse({'result': data})
 
 
@@ -125,5 +127,13 @@ def signup_meeting(request, group_id, meeting_id):
     me = get_user_from_cookie(request)
     meeting = Meeting.objects.get(id=meeting_id)
     meeting.members.add(me)
+    meeting.save()
+    return JsonResponse({'result': 'success'})
+
+
+def unsignup_meeting(request, group_id, meeting_id):
+    me = get_user_from_cookie(request)
+    meeting = Meeting.objects.get(id=meeting_id)
+    meeting.members.remove(me)
     meeting.save()
     return JsonResponse({'result': 'success'})
