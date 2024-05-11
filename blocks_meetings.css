@@ -18,6 +18,7 @@
 .block-content p {
     display: inline-block;
     font-size: 0.46em;
+    cursor: default;
 }
 
 .block-content img {
@@ -37,6 +38,7 @@
     z-index: 3;
     font-size: 0.7em;
     font-weight: normal;
+    cursor: default;
 }
 
 .block-info {
@@ -78,13 +80,19 @@
     flex-direction: column;
     justify-content: space-between;
     font-size: 0.4em;
+    align-items: center;
 }
 
-.tags-wrapper a {
-    /* Логичнее туда кнопку впихнуть */
+.tags-wrapper button {
     font-style: italic;
     text-align: center;
+    text-decoration: underline;
     color: #026228;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    max-width: fit-content;
 }
 
 .tags {
@@ -102,6 +110,7 @@
     color: #FFFFFF;
 
     font-weight: lighter;
+    cursor: pointer;
 }
 
 .person-container {
@@ -118,8 +127,9 @@
     margin: 0;
 }
 
-.person-name {
+.block-content .person-name {
     color: #0008BF;
+    cursor: pointer;
 }
 
 .block-content .person_additional-info {

@@ -20,9 +20,9 @@
         <div class="search">
             <form>
                 <label>
-                    <input type="text" placeholder="Поиск">
+                    <input type="text" placeholder="Поиск" id="searchInput" onkeypress="handleKeyPress(event)">
                 </label>
-                <button type="submit" class="searchButton">
+                <button type="button" class="searchButton" onclick="search()">
                     <img src="site_images/search.svg" alt="search" width="21px">
                 </button>
             </form>
@@ -62,11 +62,11 @@
                     </div>
                     <div class="tags-wrapper">
                         <div class="tags">
-                            <div class="tag">#программирование</div>
-                            <div class="tag">#домзад</div>
-                            <div class="tag">#БД</div>
+                            <div class="tag" onclick="tagSearching(this)">#программирование</div>
+                            <div class="tag" onclick="tagSearching(this)">#домзад</div>
+                            <div class="tag" onclick="tagSearching(this)">#БД</div>
                         </div>
-                        <a href="/no">посмотреть все</a>
+                        <button>посмотреть все</button>
                     </div>
                 </div>
                 <div class="person-container">
@@ -102,11 +102,11 @@
                     </div>
                     <div class="tags-wrapper">
                         <div class="tags">
-                            <div class="tag">#говно</div>
-                            <div class="tag">#фиит</div>
-                            <div class="tag">#мл</div>
+                            <div class="tag" onclick="tagSearching(this)">#говно</div>
+                            <div class="tag" onclick="tagSearching(this)">#фиит</div>
+                            <div class="tag" onclick="tagSearching(this)">#мл</div>
                         </div>
-                        <a href="/no">посмотреть все</a>
+                        <button>посмотреть все</button>
                     </div>
                 </div>
                 <div class="person-container">
@@ -120,6 +120,7 @@
         </div>
     </div>
 </div>
+<script src="header_controller.js"></script>
 <script src="block_controller.js"></script>
 <script src="meetings.js"></script>
 </body>

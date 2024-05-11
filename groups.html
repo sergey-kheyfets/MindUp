@@ -19,9 +19,9 @@
             <div class="search">
                 <form>
                     <label>
-                        <input type="text" placeholder="Поиск">
+                        <input type="text" placeholder="Поиск" id="searchInput" onkeypress="handleKeyPress(event)">
                     </label>
-                    <button type="submit" class="searchButton">
+                    <button type="button" class="searchButton" onclick="search()">
                         <img src="site_images/search.svg" alt="search" width="21px">
                     </button>
                 </form>
@@ -49,6 +49,7 @@
             </div>
         </div>
     </div>
+<script src="header_controller.js"></script>
 <script src="block_controller.js"></script>
 <script src="groups.js"></script>
 </body>
