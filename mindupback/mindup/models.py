@@ -11,6 +11,9 @@ class Guest(models.Model):
     password = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
 
+    def __str__(self):
+        return f"'id': {self.id}, 'name': {self.name}, 'email': {self.email}"
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -19,7 +22,6 @@ class Guest(models.Model):
             'last_name': self.last_name,
             'description': self.description,
             'email': self.email,
-            'password': self.password,
             'pub_date': self.pub_date.strftime('%Y-%m-%d %H:%M:%S')
         }
 
@@ -36,6 +38,9 @@ class Organization(models.Model):
 
     members = models.ManyToManyField(Guest, related_name='organization_members_set', blank=True)
 
+    def __str__(self):
+        return f"'id': {self.id}, 'creator_name': {self.creator.name}, 'title': {self.title}"
+
     def to_dict(self, guest=None):
         return {'id': self.id,
                 'creator_id': self.creator.id,
@@ -51,6 +56,9 @@ class Organization(models.Model):
 class MeetingTag(models.Model):
     title = models.CharField(max_length=200)
 
+    def __str__(self):
+        return f"'id': {self.id}, 'title': {self.title}"
+
     def to_dict(self):
         return {
             'title': self.title,
@@ -65,11 +73,14 @@ class Meeting(models.Model):
     description = models.CharField(max_length=10000, default="-")
     picture = models.CharField(max_length=200, default="-")
     place_text = models.CharField(max_length=10000, default="-")
-    place_link = models.URLField(max_length=10000, default="-")
+    place_link = models.URLField(max_length=10000, default="https://www.youtube.com/watch?v=9CkE8pfJdkU")
     event_time = models.DateTimeField("event time")
     max_members_number = models.IntegerField(default=0)
     members = models.ManyToManyField(Guest, related_name='meeting_members_set', blank=True)
     tags = models.ManyToManyField(MeetingTag, related_name='meeting_tags_set', blank=True)
+
+    def __str__(self):
+        return f"'title': {self.title}, 'creator_id': {self.creator.id}, 'organization_id': {self.organization.id},"
 
     def to_dict(self, guest=None):
         return {
@@ -83,6 +94,6 @@ class Meeting(models.Model):
             'place_text': self.place_text,
             'place_link': self.place_link,
             'event_time': self.event_time.strftime('%Y-%m-%d %H:%M:%S'),
-            'tags': [tag.to_dict()['title'] for tag in self.tags.all()],
+            'tags': [tag.title for tag in self.tags.all()],
             'is_me_member': False if guest is None else len(self.members.filter(id=guest.id)) > 0,
         }
