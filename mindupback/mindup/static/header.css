@@ -12,6 +12,8 @@ header {
     box-sizing: border-box;
     align-items: center;
     font-family: "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); /* гориз,  верт смещение, размытие, цвет */
 }
 
 .menuGroup {
