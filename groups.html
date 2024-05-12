@@ -55,15 +55,15 @@
         <div class="modal-view">
             <form>
                 <label>
-                    <input type="text" placeholder="Название группы">
+                    <input type="text" placeholder="Название группы" required>
                 </label>
                 <label for="group-image-upload" class="custom-image-upload">
-                    <div class="upload-content">
-
-                    </div>
                     <input type="file" id="group-image-upload" name="image" accept="image/jpeg, image/png">
                 </label>
-
+                <div style="display: flex; justify-content: space-between; width: 380px">
+                    <button type="button" onclick="closeModal()" style="background: rgb(171,171,171);">Отмена</button>
+                    <button type="submit">Создать</button>
+                </div>
             </form>
         </div>
     </div>
