@@ -1,4 +1,6 @@
 import hashlib
+import random
+import string
 
 
 def get_password_hash(string):
@@ -13,3 +15,8 @@ def get_password_hash(string):
     # Получаем хэш строку в формате шестнадцатеричного числа
     hashed_string = hash_object.hexdigest()
     return hashed_string
+
+
+def generate_random_string(length):
+    letters_and_digits = string.ascii_letters + string.digits
+    return ''.join(random.choice(letters_and_digits) for _ in range(length))
