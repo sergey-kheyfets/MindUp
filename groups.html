@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Группы</title>
-    <link rel="stylesheet" href="groups.css">
-    <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="blocks.css">
+    <link rel="stylesheet" href="groups.css">
+    <link rel="stylesheet" href="groups_modal_add.css">
+    <link rel="stylesheet" href="header.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 </head>
 <body>
@@ -47,6 +48,24 @@
                 <div class="block-background" style="background-image: url('groups_images/shad.jpeg')"></div>
                 <h2>ШАД</h2>
             </div>
+        </div>
+    </div>
+    <div class="modal-wrapper" id="modal-add">
+        <div class="modal-blackout"></div>
+        <div class="modal-view">
+            <form>
+                <label class="name-input-label">
+                    <input type="text" placeholder="Название группы" maxlength="18" required>
+                </label>
+                <label for="group-image-upload" class="custom-image-upload">
+                    <h3>Заменить изображение</h3>
+                    <input type="file" id="group-image-upload" name="image" accept="image/jpeg, image/png">
+                </label>
+                <div style="display: flex; justify-content: space-between; width: 380px">
+                    <button type="button" onclick="closeModal()" style="background: rgb(171,171,171);">Отмена</button>
+                    <button type="submit">Создать</button>
+                </div>
+            </form>
         </div>
     </div>
 <script src="header_controller.js"></script>
