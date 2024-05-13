@@ -1,41 +1,33 @@
-async function getGroups() {
-    const resp = await sendRequest('/mindup/api/all_groups');
-    return resp.result;
+const modalAdd = document.getElementById('modal-add');
+const imageLoad = document.getElementById('group-image-upload');
+const modalImageUpload = document.querySelector('.modal-view').querySelector('.custom-image-upload');
+const modalImageReloadText = modalImageUpload.querySelector('h3');
+
+function openModal() {
+    modalAdd.style.opacity = 1;
+    modalAdd.style.pointerEvents = 'auto';
 }
 
-function createGroupHTML(groupJson) {
-    const author = groupJson['creator'];
-    const title = groupJson['title'];
-    const description = groupJson['description'];
-    const icon = groupJson['icon'];
+function closeModal() {
+    modalAdd.style.opacity = 0;
+    modalAdd.style.pointerEvents = 'none';
+    setTimeout(() => {modalImageUpload.style.backgroundImage = 'url("site_images/upload_image.svg")';}, 100);
+    modalImageReloadText.style.opacity = 0;
+}
 
-    const blockElement = document.createElement('div');
-    blockElement.classList.add('block');
+document.querySelector('.block.group.add').onclick = openModal;
+modalAdd.querySelector('.modal-blackout').onclick = closeModal;
 
-    const blockBackgroundElement = document.createElement('div');
-    blockBackgroundElement.classList.add('block-background');
-    if (icon !== '-') {
-        blockBackgroundElement.style.backgroundImage = `url('${icon}')`;
+imageLoad.addEventListener('change', () => {
+    const image = imageLoad.files[0];
+    if (image) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            modalImageUpload.style.backgroundImage = `url(${e.target.result})`;
+            setTimeout(() => {modalImageReloadText.style.opacity = 1;}, 200);
+        }
+        reader.readAsDataURL(image);
     }
+});
 
-
-    const h2Element = document.createElement('h2');
-    h2Element.innerHTML = title;
-
-    blockElement.appendChild(blockBackgroundElement);
-    blockElement.appendChild(h2Element);
-
-    return blockElement;
-}
-
-async function updateGroups() {
-    const result = await getGroups();
-    const blocks = document.querySelector('.blocks');
-    for (const group of result) {
-        const groupHTML = createGroupHTML(group);
-        blocks.appendChild(groupHTML);
-    }
-    setGrid();
-}
-
-updateGroups();
+setGrid();
