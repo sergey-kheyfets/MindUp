@@ -18,13 +18,13 @@
 
 .modal-view {
     position: fixed;
-    padding: 40px 30px;
+    padding: 30px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #EFFFD5;
     width: 600px;
-    height: 400px;
+    height: 420px;
     border-radius: 20px;
 }
 
@@ -59,6 +59,25 @@
     opacity: 0;
 }
 
+.name-input-label {
+    position: relative;
+}
+
+.name-input-label::after {
+    margin-top: 5px;
+    content: "До 18 символов";
+    color: #424242;
+    width: 100%;
+    text-align: center;
+    height: 100px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    font-family: Fira, sans-serif;
+    font-weight: normal;
+    font-size: 0.9em;
+}
+
 .modal-view input[type="file"] {
     display: none;
 }
@@ -74,6 +93,7 @@
     background-size: cover;
     background-position: center;
     border-radius: 20px;
+    margin-top: 20px;
 }
 
 .custom-image-upload h3 {
@@ -88,9 +108,13 @@
     padding: 10px 15px;
     border-radius: 15px;
     box-shadow: 0 3px 7px rgba(42, 42, 42, 0.4);
-    transition: all 0.7s ease;
-    pointer-events: none;
+    transition: opacity 0.7s ease, box-shadow 0.2s linear;
     min-width: max-content;
+    cursor: pointer;
+}
+
+.custom-image-upload h3:hover {
+    box-shadow: 0 3px 10px rgba(19, 19, 19, 0.63);
 }
 
 .modal-view button {
