@@ -1,4 +1,6 @@
 const tagLimit = 35;
+const blocksWrapper = document.querySelector('.blocks-wrapper');
+const groupTitle = document.querySelector('.source-group-name');
 
 async function getMeetings() {
     const resp = await sendRequest('/mindup/api/all_meetings');
@@ -115,7 +117,11 @@ async function updateMeetings() {
     if (groupId !== null) {
         result = await getGroupMeetings(groupId);
     } else {
+        const groupName = getUrlParameter('title');
         result = await getMeetings();
+        blocksWrapper.style.paddingTop = 0;
+        groupTitle.textContent = groupName;
+        groupTitle.style.display = 'block';
     }
 
     const blocks = document.querySelector('.blocks-wrapper .blocks');

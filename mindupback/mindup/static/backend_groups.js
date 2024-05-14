@@ -12,7 +12,7 @@ function createGroupHTML(groupJson) {
 
     const blockElement = document.createElement('div');
     blockElement.classList.add('block');
-    blockElement.onclick = () => { window.location.href = `meetings.html?group=${groupId}` }
+    blockElement.onclick = () => { window.location.href = `meetings.html?group=${groupId}&title=${title}` };
 
     const blockBackgroundElement = document.createElement('div');
     blockBackgroundElement.classList.add('block-background');
