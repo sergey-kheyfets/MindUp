@@ -114,11 +114,11 @@ function createMeetingsHTML(groupJson) {
 async function updateMeetings() {
     const groupId = getUrlParameter('group');
     let result;
-    if (groupId !== null) {
-        result = await getGroupMeetings(groupId);
+    if (groupId === null) {
+        result = await getMeetings();
     } else {
         const groupName = getUrlParameter('title');
-        result = await getMeetings();
+        result = await getGroupMeetings(groupId);
         blocksWrapper.style.paddingTop = 0;
         groupTitle.textContent = groupName;
         groupTitle.style.display = 'block';
