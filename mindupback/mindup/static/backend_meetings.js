@@ -86,7 +86,7 @@ function createMeetingsHTML(groupJson) {
                     <img src="site_images/person.svg" alt="person icon">
                     <div class="person-info">
                         <p class="person-name">${author}</p>
-                        <p class="person_additional-info">${authorEmail}</p>
+                        <p class="person-additional-info">${authorEmail}</p>
                     </div>
                 </div>
             </div>
