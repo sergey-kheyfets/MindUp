@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Группы</title>
-    <link rel="stylesheet" href="groups.css">
-    <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="blocks.css">
+    <link rel="stylesheet" href="groups.css">
+    <link rel="stylesheet" href="groups_modal_add.css">
+    <link rel="stylesheet" href="header.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 </head>
 <body>
@@ -38,9 +39,29 @@
             <div class="block group add">Добавить группу</div>
         </div>
     </div>
+    <div class="modal-wrapper" id="modal-add">
+        <div class="modal-blackout"></div>
+        <div class="modal-view">
+            <form action="/api/send_group" method="post" enctype="multipart/form-data">
+                <label class="name-input-label">
+                    <input type="text" name="title" placeholder="Название группы" maxlength="18" required>
+                </label>
+                <label for="group-image-upload" class="custom-image-upload">
+                    <h3>Заменить изображение</h3>
+                    <input type="file" id="group-image-upload" name="image" accept="image/jpeg, image/png">
+                </label>
+                <div style="display: flex; justify-content: space-between; width: 380px">
+                    <button type="button" onclick="closeModal()" style="background: rgb(171,171,171);">Отмена</button>
+                    <button type="submit">Создать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="network.js"></script>
-<script src="header_controller.js"></script>
-<script src="block_controller.js"></script>
-<script src="groups.js"></script>
+    <script src="header_controller.js"></script>
+    <script src="block_controller.js"></script>
+    <script src="groups.js"></script>
+    <script src="backend_groups.js"></script>
 </body>
 </html>

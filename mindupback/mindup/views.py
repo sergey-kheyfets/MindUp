@@ -7,6 +7,8 @@ from django.utils import timezone
 from . import extensions
 from .models import Guest, Organization, Meeting, MeetingTag
 
+from django.core.files.storage import FileSystemStorage
+
 
 def get_user_from_cookie(request):
     if 'mindup_email' not in request.COOKIES:
@@ -107,6 +109,21 @@ def groups_meetings(request, group_id):
     guest = get_user_from_cookie(request)
     data = [meeting.to_dict(guest) for meeting in Meeting.objects.filter(organization_id=group_id)]
     return JsonResponse({'result': data})
+
+
+def send_group(request):
+    creator = get_user_from_cookie(request)
+    title = request.POST['title']
+    description = request.POST['title']
+    file = request.FILES['image']
+    fs = FileSystemStorage()
+    fs.save(creator.name + "_" + extensions.generate_random_string(10) + "_" + file.name, file)
+    uploaded_file_url = fs.url(file)
+    o = Organization(creator=creator, title=title, description=description, icon=uploaded_file_url)
+    o.save()
+    o.members.add(creator)
+    o.save()
+    return HttpResponseRedirect("/api/my_groups")
 
 
 def get_tag(tag_name):
