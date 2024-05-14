@@ -62,6 +62,7 @@
     display: flex;
     align-items: center;
     padding-left: 10px;
+    width: 230px;
 }
 
 .block .block-title {
@@ -112,6 +113,7 @@
     flex-direction: column;
     justify-content: space-between;
     font-size: 0.4em;
+    width: 170px;
     align-items: center;
 }
 

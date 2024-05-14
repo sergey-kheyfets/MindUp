@@ -65,11 +65,11 @@
 
 .name-input-label::after {
     margin-top: 5px;
+    height: 20px;
     content: "До 18 символов";
     color: #424242;
     width: 100%;
     text-align: center;
-    height: 100px;
     position: absolute;
     top: 100%;
     left: 0;
