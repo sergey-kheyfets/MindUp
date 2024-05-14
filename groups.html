@@ -53,9 +53,9 @@
     <div class="modal-wrapper" id="modal-add">
         <div class="modal-blackout"></div>
         <div class="modal-view">
-            <form>
+            <form action="/api/send_group" method="post" enctype="multipart/form-data">
                 <label class="name-input-label">
-                    <input type="text" placeholder="Название группы" maxlength="18" required>
+                    <input type="text" name="title" placeholder="Название группы" maxlength="18" required>
                 </label>
                 <label for="group-image-upload" class="custom-image-upload">
                     <h3>Заменить изображение</h3>
@@ -68,8 +68,8 @@
             </form>
         </div>
     </div>
-<script src="header_controller.js"></script>
-<script src="block_controller.js"></script>
-<script src="groups.js"></script>
+    <script src="header_controller.js"></script>
+    <script src="block_controller.js"></script>
+    <script src="groups.js"></script>
 </body>
 </html>
