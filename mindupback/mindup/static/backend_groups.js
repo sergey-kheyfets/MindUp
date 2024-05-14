@@ -4,6 +4,7 @@ async function getGroups() {
 }
 
 function createGroupHTML(groupJson) {
+    const groupId = groupJson['id'];
     const author = groupJson['creator'];
     const title = groupJson['title'];
     const description = groupJson['description'];
@@ -11,6 +12,7 @@ function createGroupHTML(groupJson) {
 
     const blockElement = document.createElement('div');
     blockElement.classList.add('block');
+    blockElement.onclick = () => { window.location.href = `meetings.html?group=${groupId}` }
 
     const blockBackgroundElement = document.createElement('div');
     blockBackgroundElement.classList.add('block-background');

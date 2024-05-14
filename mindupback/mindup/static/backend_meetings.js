@@ -5,6 +5,12 @@ async function getMeetings() {
     return resp.result;
 }
 
+async function getGroupMeetings(groupId) {
+    const resp = await sendRequest(`api/group/${groupId}/meetings`);
+    return resp.result;
+}
+
+
 function createTagsWrapper(tags) {
     const tagsWrapper = document.createElement('div');
     tagsWrapper.classList.add('tags-wrapper');
@@ -104,7 +110,14 @@ function createMeetingsHTML(groupJson) {
 }
 
 async function updateMeetings() {
-    const result = await getMeetings();
+    const groupId = getUrlParameter('group');
+    let result;
+    if (groupId !== null) {
+        result = await getGroupMeetings(groupId);
+    } else {
+        result = await getMeetings();
+    }
+
     const blocks = document.querySelector('.blocks-wrapper .blocks');
     for (const meeting of result) {
         const meetingHTML = createMeetingsHTML(meeting);
