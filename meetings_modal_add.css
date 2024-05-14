@@ -37,6 +37,10 @@
     flex-direction: column;
 }
 
+.modal-view .display-none-input {
+    display: none;
+}
+
 .modal-view .name-input-label input[type="text"] {
     width: 500px;
     height: 40px;

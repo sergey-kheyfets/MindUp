@@ -1,6 +1,7 @@
 const tagLimit = 35;
 const blocksWrapper = document.querySelector('.blocks-wrapper');
 const groupTitle = document.querySelector('.source-group-name');
+const groupIdInput = document.getElementById('meetingAddOrgId');
 
 async function getMeetings() {
     const resp = await sendRequest('/mindup/api/all_meetings');
@@ -118,6 +119,7 @@ async function updateMeetings() {
         result = await getMeetings();
     } else {
         const groupName = getUrlParameter('title');
+        groupIdInput.value = groupId;
         result = await getGroupMeetings(groupId);
         blocksWrapper.style.paddingTop = 0;
         groupTitle.textContent = groupName;
