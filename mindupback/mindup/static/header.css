@@ -16,6 +16,11 @@ header {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); /* гориз,  верт смещение, размытие, цвет */
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s, width 0.3s ease;
+}
+
 .menuGroup {
     display: flex;
     gap: 20px;

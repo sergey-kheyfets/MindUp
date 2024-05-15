@@ -145,6 +145,7 @@
     min-height: 150px;
     resize: vertical;
     overflow-y: auto;
+    text-align: left;
 }
 
 .modal-view textarea::placeholder {
