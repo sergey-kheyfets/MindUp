@@ -118,6 +118,17 @@
     width: 100px;
     text-align: center;
     transition: width 0.2s ease;
+    background-color: #026228;
+}
+
+.modal-view .tag input {
+    background-color: #026228;
+}
+
+.modal-view .tag input:-webkit-autofill,
+.modal-view .tag input:-webkit-autofill:active,
+.modal-view .tag input:-webkit-autofill:past {
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .modal-view .datetime-place-info {
