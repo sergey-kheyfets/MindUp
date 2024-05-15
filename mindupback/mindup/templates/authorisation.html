@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>MindUp</title>
-    <link rel="stylesheet" href="authorisation.css">
+    <link rel="stylesheet" href="auth_main_styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 </head>
 <body>
-<div id="imageContainer">
-    <img src="pngwing.com.png" alt="test" class="welcomeImage">
+<div class="image-container">
+    <div class="main-background"></div>
 </div>
-<div id="loginContainer">
-    <h1 class="MindUpTitle">MindUp</h1>
+<div class="login-container">
+    <h1>MindUp</h1>
     <form action="login" method="post" id="login">
-        <h2 class="helloText">Привет!</h2>
+        <h2 class="hello-text">Привет!</h2>
         <h3>Введите email и пароль, чтобы продолжить</h3>
         <label>
             Электронная почта
@@ -22,7 +23,7 @@
             Пароль
             <input type="password" name="password" required placeholder="Введите пароль">
         </label>
-        <button type="submit" class="entranceButton">
+        <button type="submit">
             Войти
         </button>
         <div class="underText">

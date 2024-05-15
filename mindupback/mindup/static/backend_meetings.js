@@ -1,8 +1,37 @@
 const tagLimit = 35;
+const emailLimit = 20;
+const blocksWrapper = document.querySelector('.blocks-wrapper');
+const groupTitle = document.querySelector('.source-group-name');
+const groupIdInput = document.getElementById('meetingAddOrgId');
+const backgroundContainer = document.querySelector('.background-container');
 
 async function getMeetings() {
     const resp = await sendRequest('/mindup/api/all_meetings');
     return resp.result;
+}
+
+async function getGroupMeetings(groupId) {
+    const resp = await sendRequest(`api/group/${groupId}/meetings`);
+    return resp.result;
+}
+
+async function getBackgroundImageUrl(groupId) {
+    const resp = await sendRequest('/mindup/api/all_groups');
+    for (const group of resp.result) {
+        if (group['id'] == groupId) {
+            return group['icon'];
+        }
+    }
+    return '-';
+}
+
+async function setBackgroundImage(groupId) {
+    const url = await getBackgroundImageUrl(groupId);
+    if (url !== '-') {
+        backgroundContainer.style.backgroundImage = `url("${url}")`;
+    } else {
+        backgroundContainer.style.backgroundImage = 'url("site_images/background_blured.png")';
+    }
 }
 
 function createTagsWrapper(tags) {
@@ -35,32 +64,81 @@ function createTagsWrapper(tags) {
     return tagsWrapper;
 }
 
-function getDateTime(eventTime) {
-    const time = `${eventTime.getHours()}:${eventTime.getMinutes()}`;
-    const year = eventTime.getFullYear().toString().substring(2,4)
-    let month = (eventTime.getMonth() + 1).toString();
-    if (month.length === 1) {
-        month = '0' + month;
+function rightZeroFormat(value) {
+    const strValue = value.toString();
+    if (strValue.length === 1) {
+        return '0' + strValue;
     }
-    const date = `${eventTime.getDate()}.${month}.${year}`;
+    return strValue;
+}
+
+function getDateTime(eventTime) {
+    const time = `${rightZeroFormat(eventTime.getHours())}:${rightZeroFormat(eventTime.getMinutes())}`;
+    const year = eventTime.getFullYear().toString().substring(2,4);
+    let month = rightZeroFormat(eventTime.getMonth() + 1);
+    const date = `${rightZeroFormat(eventTime.getDate())}.${month}.${year}`;
     return [time, date];
 }
 
-function createMeetingsHTML(groupJson) {
-    const author = `${groupJson['creator_dict']['sur_name']} ${groupJson['creator_dict']['name']}`;
-    const authorEmail = groupJson['creator_dict']['email'];
-    const title = groupJson['title'];
-    const description = groupJson['description'];
-    const placeText = groupJson['place_text'];
-    const eventTime = new Date(groupJson['event_time']);
+function shortAuthorEmail(email) {
+    if (email.length > emailLimit) {
+        return 'Email: ' + email.slice(0, emailLimit - 3) + '...';
+    }
+    return 'Email: ' + email;
+}
+
+function renderMeetingStatusHTML(isMember, groupId, meetingId) {
+    if (isMember) {
+        const url = `/api/group/${groupId}/${meetingId}/unsignup`;
+        const func = `fetch('${url}').then(() => location.reload())`;
+        return `<img src="site_images/person_cancel.svg" alt="Отказаться" class="meeting-status" onclick="${func}">
+                <div class="meeting-status-tooltip">Отказаться</div>`;
+    } else {
+        const url = `/api/group/${groupId}/${meetingId}/signup`;
+        const func = `fetch('${url}').then(() => location.reload())`;
+        return `<img src="site_images/person_ok.svg" alt="Записаться" class="meeting-status" onclick="${func}">
+                <div class="meeting-status-tooltip">Записаться</div>`;
+    }
+}
+
+function setMemberCountStyle(cur, max) {
+    if (cur === max) {
+        return 'background-color: #e34949';
+    }
+    return '';
+}
+
+async function getMemberCountAndStyle(memberTask, max, isLimited) {
+    let maxStr = max.toString();
+    if (!isLimited) {
+        maxStr = 'Ꝏ';
+    }
+    const resMembers = await memberTask;
+    console.log(resMembers)
+    const current = resMembers.result.length;
+    const style = setMemberCountStyle(Number(current), Number(max));
+    return [`${current} / ${maxStr}`, style];
+}
+
+async function createMeetingsHTMLTask(meetingJson) {
+    const meetingId = meetingJson['meeting_id'];
+    const groupId = meetingJson['organization_id'];
+    const membersTask = sendRequest(`api/group/${groupId}/meeting/${meetingId}/guests`);
+    const author = `${meetingJson['creator_dict']['sur_name']} ${meetingJson['creator_dict']['name']}`;
+    const authorEmail = meetingJson['creator_dict']['email'];
+    const title = meetingJson['title'];
+    const description = meetingJson['description'];
+    const placeText = meetingJson['place_text'];
+    const eventTime = new Date(meetingJson['event_time']);
     const [time, date] = getDateTime(eventTime);
-    const tags = groupJson['tags']
-    const isMember = groupJson['is_me_member']
+    const tags = meetingJson['tags'];
+    const isMember = meetingJson['is_me_member'];
+
+    const [memberCountInfo, memberCountStyle] = await getMemberCountAndStyle(membersTask, meetingJson['max_members_number'], meetingJson['is_max_members_number_limited']);
 
     const block = `
         <div class="block">
-            <img src="site_images/person_cancel.svg" alt="Отказаться" class="meeting-status">
-            <div class="meeting-status-tooltip">Отказаться</div>
+            ${ renderMeetingStatusHTML(isMember, groupId, meetingId) }
             <div class="block-content">
                 <div class="block-title-wrapper">
                     <div class="block-title">${title}</div>
@@ -86,7 +164,10 @@ function createMeetingsHTML(groupJson) {
                     <img src="site_images/person.svg" alt="person icon">
                     <div class="person-info">
                         <p class="person-name">${author}</p>
-                        <p class="person-additional-info">${authorEmail}</p>
+                        <p class="person-additional-info" title="${authorEmail}">${shortAuthorEmail(authorEmail)}</p>
+                    </div>
+                    <div class="members-count-info" style="${memberCountStyle}">
+                        ${memberCountInfo}
                     </div>
                 </div>
             </div>
@@ -104,12 +185,34 @@ function createMeetingsHTML(groupJson) {
 }
 
 async function updateMeetings() {
-    const result = await getMeetings();
+    const groupId = getUrlParameter('group');
+    const backgroundTask = setBackgroundImage(groupId);
+    let resultTask;
+    if (groupId === null) {
+        resultTask = getMeetings();
+    } else {
+        groupIdInput.value = groupId;
+        resultTask = getGroupMeetings(groupId);
+        const groupName = getUrlParameter('title');
+        if (groupName !== null) {
+            blocksWrapper.style.paddingTop = 0;
+            groupTitle.textContent = groupName;
+            groupTitle.style.display = 'block';
+        }
+    }
+    const [resultMeetingsInfo, _] = await Promise.all([resultTask, backgroundTask])
+
     const blocks = document.querySelector('.blocks-wrapper .blocks');
-    for (const meeting of result) {
-        const meetingHTML = createMeetingsHTML(meeting);
+    let meetingBlockTasks = []
+    for (const meeting of resultMeetingsInfo) {
+        meetingBlockTasks.push(createMeetingsHTMLTask(meeting))
+    }
+
+    let blocksResult = await Promise.all(meetingBlockTasks);
+    for (const meetingHTML of blocksResult) {
         blocks.appendChild(meetingHTML);
     }
+
     setGrid();
 }
 

@@ -9,3 +9,14 @@ function sendRequest(url) {
         throw new Error('Request failed');
     });
 }
+
+function getUrlParameter(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+function checkAuthorization() {
+    if (document.cookie.split(';').length < 2) {
+        window.location.href = '/';
+    }
+}

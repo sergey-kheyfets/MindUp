@@ -30,7 +30,7 @@ h3{
     align-items: center;
 }
 
-#loginContainer {
+#login-container {
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
@@ -50,7 +50,7 @@ body{
 }
 
 
-.helloText{
+.hello-text{
     color: #4A8B49;
     margin: 0;
 }

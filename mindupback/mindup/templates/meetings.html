@@ -13,7 +13,7 @@
 <body>
     <header>
         <div class="menuGroup">
-            <a href="/brawlstars" class="logo">MindUp</a>
+            <div class="logo">MindUp</div>
         </div>
         <div class="menuGroup">
             <a href="groups.html" class="groupsLink">Группы</a>
@@ -29,14 +29,23 @@
                 </form>
             </div>
         </div>
-        <a href="/brawlstars" class="menuGroup profile">
-            <img src="site_images/profile.svg" alt="Profile" class="profile-svg"></img>
+        <button class="menuGroup profile" onclick="openProfileInfo()">
+            <img src="site_images/profile.svg" alt="Profile" class="profile-svg">
             <p>Профиль</p>
-        </a>
+        </button>
+        <div class="profile-info-container">
+            <p id="profileName">Рыбин Илья Байденович</p>
+            <div class="profile-additional-info">
+                <p id="profileEmail">Email: bebra.com</p>
+                <p id="profilePubDate" style="font-size: 1em; margin-bottom: -5px">Зарегистрирован: 2024-05-08 17:07:08</p>
+            </div>
+            <a href="authorisation.html">Выйти</a>
+        </div>
     </header>
     <div class="background-container">
         <div class="background-dimmer"></div>
     </div>
+    <div class="source-group-name">ФИИТ</div>
     <div class="blocks-wrapper">
         <div class="blocks">
             <div class="block add">Добавить встречу</div>
@@ -78,6 +87,9 @@
                             <p class="person-name">Степан Кучин</p>
                             <p class="person-additional-info" title="stepa.kuchin@urfu.me">stepa.kuchin@urfu.me</p>
                         </div>
+                    </div>
+                    <div class="members-count-info">
+                        10 / 20
                     </div>
                 </div>
             </div>
@@ -128,6 +140,9 @@
         <div class="modal-blackout"></div>
         <div class="modal-view">
             <form action="/api/send_meeting" method="post" enctype="multipart/form-data">
+                <label class="display-none-input">
+                    <input type="text" name="organization_id" id="meetingAddOrgId">
+                </label>
                 <label class="name-input-label">
                     <input type="text" name="name" placeholder="Введите название встречи" maxlength="35" required>
                 </label>
@@ -141,10 +156,10 @@
                     </div>
                     <div class="datetime-place-info">
                         <label>
-                            <input type="date" name="date">
+                            <input type="date" name="date" required>
                         </label>
                         <label>
-                            <input type="time" name="time">
+                            <input type="time" name="time" required>
                         </label>
                         <label>
                             <input type="text" name="place" placeholder="Место" maxlength="35" required>
@@ -161,11 +176,12 @@
             </form>
         </div>
     </div>
+    <script src="network.js"></script>
     <script src="header_controller.js"></script>
     <script src="block_controller.js"></script>
     <script src="meetings.js"></script>
     <script src="meetings_modal_add.js"></script>
-    <script src="network.js"></script>
     <script src="backend_meetings.js"></script>
+    <script src="backend_header.js"></script>
 </body>
 </html>

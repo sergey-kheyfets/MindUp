@@ -172,3 +172,16 @@
     font-size: 0.4em;
     cursor: pointer;
 }
+
+.members-count-info {
+    position: absolute;
+    height: min-content;
+    right: 20px;
+    bottom: 20px;
+    padding: 5px 10px;
+    color: #FFFFFF;
+    border-radius: 20px;
+    background-color: #63ad61;
+    font-size: 0.5em;
+}
+
