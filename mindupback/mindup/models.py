@@ -75,6 +75,7 @@ class Meeting(models.Model):
     place_text = models.CharField(max_length=10000, default="-")
     place_link = models.URLField(max_length=10000, default="https://www.youtube.com/watch?v=9CkE8pfJdkU")
     event_time = models.DateTimeField("event time")
+    is_max_members_number_limited = models.BooleanField(default=True)
     max_members_number = models.IntegerField(default=0)
     members = models.ManyToManyField(Guest, related_name='meeting_members_set', blank=True)
     tags = models.ManyToManyField(MeetingTag, related_name='meeting_tags_set', blank=True)
@@ -94,6 +95,8 @@ class Meeting(models.Model):
             'place_text': self.place_text,
             'place_link': self.place_link,
             'event_time': self.event_time.strftime('%Y-%m-%d %H:%M:%S'),
+            'is_max_members_number_limited': self.is_max_members_number_limited,
+            'max_members_number': self.max_members_number,
             'tags': [tag.title for tag in self.tags.all()],
             'is_me_member': False if guest is None else len(self.members.filter(id=guest.id)) > 0,
         }

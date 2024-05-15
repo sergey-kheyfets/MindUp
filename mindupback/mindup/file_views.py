@@ -1,7 +1,7 @@
 from django.http import HttpResponse, FileResponse, SimpleCookie,\
     HttpResponseRedirect, JsonResponse, HttpResponseBadRequest, Http404, HttpResponseNotFound
-from PIL import Image
-from io import BytesIO
+#from PIL import Image
+#from io import BytesIO
 import os
 
 
@@ -58,12 +58,25 @@ def get_folder_img(request, folder_name, file_name, file_extension):
     return img_from_path(image_path, file_extension)
 
 
-def img_from_path(image_path, file_extension):
-    image = Image.open(image_path)
+def img_from_path2(image_path, file_extension):
+    pass
+    # file_extension == "jpg":
+    #    file_extension = "jpeg"
+    #image = Image.open(image_path)
+    #image = Image.open(image_path)
     # Image._show(image)
     # Создаем байтовый объект для хранения изображения
-    image_byte_array = BytesIO()
-    image.save(image_byte_array, format=file_extension.upper())
+    #image_byte_array = BytesIO()
+    #image.save(image_byte_array, format=file_extension.upper())
 
     # Возвращаем ответ с содержимым изображения
-    return HttpResponse(image_byte_array.getvalue(), content_type='image/png')
+    #return HttpResponse(image_byte_array.getvalue(), content_type=f"image/{file_extension.lower()}")
+
+
+def img_from_path(image_path, file_extension):
+    if file_extension == "jpg":
+        file_extension = "jpeg"
+
+    image = open(image_path, 'rb')
+
+    return HttpResponse(image, content_type=f"image/{file_extension.lower()}")

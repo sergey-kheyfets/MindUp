@@ -127,7 +127,7 @@
     <div class="modal-wrapper" id="modal-add">
         <div class="modal-blackout"></div>
         <div class="modal-view">
-            <form>
+            <form action="/api/send_meeting" method="post" enctype="multipart/form-data">
                 <label class="name-input-label">
                     <input type="text" name="name" placeholder="Введите название встречи" maxlength="35" required>
                 </label>
