@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>MindUp</title>
     <link rel="stylesheet" href="auth_main_styles.css">
+    <link rel="stylesheet" href="registration.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 </head>
 <body>
@@ -16,16 +17,24 @@
         <h2 class="hello-text">Регистрация</h2>
         <h3>Введите данные пользователя</h3>
         <label>
-            Имя пользователя
-            <input type="text" name="userName" required placeholder="Введите имя пользователя">
+            Имя
+            <input type="text" name="userName" placeholder="Введите имя пользователя" required>
+        </label>
+        <label>
+            Фамилия
+            <input type="text" name="sur_name" placeholder="Введите фамилию пользователя" required>
+        </label>
+        <label>
+            Отчество (необязательно)
+            <input type="text" name="last_name" placeholder="Введите отчество пользователя">
         </label>
         <label>
             Электронная почта
-            <input type="email" name="email" required placeholder="Введите адрес электронной почты">
+            <input type="email" name="email" placeholder="Введите адрес электронной почты" required>
         </label>
         <label>
             Пароль
-            <input type="password" name="password" required placeholder="Введите пароль">
+            <input type="password" name="password" placeholder="Введите пароль" required>
         </label>
         <button type="submit" class="entranceButton">
             Зарегистрироваться
