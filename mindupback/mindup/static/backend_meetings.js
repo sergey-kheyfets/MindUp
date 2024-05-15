@@ -3,6 +3,7 @@ const emailLimit = 20;
 const blocksWrapper = document.querySelector('.blocks-wrapper');
 const groupTitle = document.querySelector('.source-group-name');
 const groupIdInput = document.getElementById('meetingAddOrgId');
+const backgroundContainer = document.querySelector('.background-container');
 
 async function getMeetings() {
     const resp = await sendRequest('/mindup/api/all_meetings');
@@ -14,6 +15,23 @@ async function getGroupMeetings(groupId) {
     return resp.result;
 }
 
+async function getBackgroundImageUrl(groupId) {
+    const resp = await sendRequest('/mindup/api/all_groups');
+    for (const group of resp.result) {
+        if (group['id'] == groupId) {
+            return group['icon'];
+        }
+    }
+}
+
+async function setBackgroundImage(groupId) {
+    const url = await getBackgroundImageUrl(groupId);
+    if (url !== '-') {
+        backgroundContainer.style.backgroundImage = `url("${url}")`;
+    } else {
+        backgroundContainer.style.backgroundImage = 'url("site_images/background_blured.png")';
+    }
+}
 
 function createTagsWrapper(tags) {
     const tagsWrapper = document.createElement('div');
@@ -122,17 +140,21 @@ function createMeetingsHTML(groupJson) {
 
 async function updateMeetings() {
     const groupId = getUrlParameter('group');
-    let result;
+    const backgroundTask = setBackgroundImage(groupId);
+    let resultTask;
     if (groupId === null) {
-        result = await getMeetings();
+        resultTask = getMeetings();
     } else {
-        const groupName = getUrlParameter('title');
         groupIdInput.value = groupId;
-        result = await getGroupMeetings(groupId);
-        blocksWrapper.style.paddingTop = 0;
-        groupTitle.textContent = groupName;
-        groupTitle.style.display = 'block';
+        resultTask = getGroupMeetings(groupId);
+        const groupName = getUrlParameter('title');
+        if (groupName !== null) {
+            blocksWrapper.style.paddingTop = 0;
+            groupTitle.textContent = groupName;
+            groupTitle.style.display = 'block';
+        }
     }
+    const [result, _] = Promise.all(resultTask, backgroundTask);
 
     const blocks = document.querySelector('.blocks-wrapper .blocks');
     for (const meeting of result) {
