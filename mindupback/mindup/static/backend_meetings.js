@@ -114,7 +114,6 @@ async function getMemberCountAndStyle(memberTask, max, isLimited) {
         maxStr = 'Ꝏ';
     }
     const resMembers = await memberTask;
-    console.log(resMembers)
     const current = resMembers.result.length;
     const style = setMemberCountStyle(Number(current), Number(max));
     return [`${current} / ${maxStr}`, style];

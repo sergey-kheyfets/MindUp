@@ -99,6 +99,7 @@
 
 .modal-view .tags {
     width: 520px;
+    gap: 7px
 }
 
 .modal-view .tags-add-hint {
@@ -106,6 +107,7 @@
     font-weight: normal;
     font-size: 1.1em;
     margin: auto 5px;
+    transition: opacity 0.2s ease-in;
 }
 
 .modal-view .tag {
@@ -113,6 +115,9 @@
     margin: auto 5px;
     border-radius: 15px;
     border: none;
+    width: 100px;
+    text-align: center;
+    transition: width 0.2s ease;
 }
 
 .modal-view .datetime-place-info {
