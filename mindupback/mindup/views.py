@@ -113,6 +113,7 @@ def meeting_members(request, group_id, meeting_id):
 def all_meetings(request):
     guest = get_user_from_cookie(request)
     data = [meeting.to_dict(guest) for meeting in Meeting.objects.all()]
+    data.sort(key=lambda x: x['event_time'])
     return JsonResponse({'result': data})
 
 
