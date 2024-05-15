@@ -101,18 +101,40 @@ function renderMeetingStatusHTML(isMember, groupId, meetingId) {
     }
 }
 
-function createMeetingsHTML(meetingJson) {
+function setMemberCountStyle(cur, max) {
+    if (cur === max) {
+        return 'background-color: #e34949';
+    }
+    return '';
+}
+
+async function getMemberCountAndStyle(memberTask, max, isLimited) {
+    let maxStr = max.toString();
+    if (!isLimited) {
+        maxStr = 'Ꝏ';
+    }
+    const resMembers = await memberTask;
+    console.log(resMembers)
+    const current = resMembers.result.length;
+    const style = setMemberCountStyle(Number(current), Number(max));
+    return [`${current} / ${maxStr}`, style];
+}
+
+async function createMeetingsHTMLTask(meetingJson) {
+    const meetingId = meetingJson['meeting_id'];
+    const groupId = meetingJson['organization_id'];
+    const membersTask = sendRequest(`api/group/${groupId}/meeting/${meetingId}/guests`);
     const author = `${meetingJson['creator_dict']['sur_name']} ${meetingJson['creator_dict']['name']}`;
     const authorEmail = meetingJson['creator_dict']['email'];
     const title = meetingJson['title'];
-    const groupId = meetingJson['organization_id'];
-    const meetingId = meetingJson['meeting_id']
     const description = meetingJson['description'];
     const placeText = meetingJson['place_text'];
     const eventTime = new Date(meetingJson['event_time']);
     const [time, date] = getDateTime(eventTime);
-    const tags = meetingJson['tags']
-    const isMember = meetingJson['is_me_member']
+    const tags = meetingJson['tags'];
+    const isMember = meetingJson['is_me_member'];
+
+    const [memberCountInfo, memberCountStyle] = await getMemberCountAndStyle(membersTask, meetingJson['max_members_number'], meetingJson['is_max_members_number_limited']);
 
     const block = `
         <div class="block">
@@ -143,6 +165,9 @@ function createMeetingsHTML(meetingJson) {
                     <div class="person-info">
                         <p class="person-name">${author}</p>
                         <p class="person-additional-info" title="${authorEmail}">${shortAuthorEmail(authorEmail)}</p>
+                    </div>
+                    <div class="members-count-info" style="${memberCountStyle}">
+                        ${memberCountInfo}
                     </div>
                 </div>
             </div>
@@ -175,13 +200,19 @@ async function updateMeetings() {
             groupTitle.style.display = 'block';
         }
     }
-    const [result, _] = await Promise.all([resultTask, backgroundTask])
+    const [resultMeetingsInfo, _] = await Promise.all([resultTask, backgroundTask])
 
     const blocks = document.querySelector('.blocks-wrapper .blocks');
-    for (const meeting of result) {
-        const meetingHTML = createMeetingsHTML(meeting);
+    let meetingBlockTasks = []
+    for (const meeting of resultMeetingsInfo) {
+        meetingBlockTasks.push(createMeetingsHTMLTask(meeting))
+    }
+
+    let blocksResult = await Promise.all(meetingBlockTasks);
+    for (const meetingHTML of blocksResult) {
         blocks.appendChild(meetingHTML);
     }
+
     setGrid();
 }
 
