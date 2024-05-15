@@ -85,6 +85,7 @@ class Meeting(models.Model):
 
     def to_dict(self, guest=None):
         return {
+            'meeting_id': self.id,
             'creator_id': self.creator.id,
             'creator_dict': self.creator.to_dict(),
             'organization_id': self.organization.id,

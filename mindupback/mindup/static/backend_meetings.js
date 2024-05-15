@@ -82,21 +82,36 @@ function shortAuthorEmail(email) {
     return 'Email: ' + email;
 }
 
-function createMeetingsHTML(groupJson) {
-    const author = `${groupJson['creator_dict']['sur_name']} ${groupJson['creator_dict']['name']}`;
-    const authorEmail = groupJson['creator_dict']['email'];
-    const title = groupJson['title'];
-    const description = groupJson['description'];
-    const placeText = groupJson['place_text'];
-    const eventTime = new Date(groupJson['event_time']);
+function renderMeetingStatusHTML(isMember, groupId, meetingId) {
+    if (isMember) {
+        const url = `/api/group/${groupId}/${meetingId}/unsignup`;
+        const func = `fetch('${url}').then(() => location.reload())`;
+        return `<img src="site_images/person_cancel.svg" alt="Отказаться" class="meeting-status" onclick="${func}">
+                <div class="meeting-status-tooltip">Отказаться</div>`;
+    } else {
+        const url = `/api/group/${groupId}/${meetingId}/signup`;
+        const func = `fetch('${url}').then(() => location.reload())`;
+        return `<img src="site_images/person_ok.svg" alt="Записаться" class="meeting-status" onclick="${func}">
+                <div class="meeting-status-tooltip">Записаться</div>`;
+    }
+}
+
+function createMeetingsHTML(meetingJson) {
+    const author = `${meetingJson['creator_dict']['sur_name']} ${meetingJson['creator_dict']['name']}`;
+    const authorEmail = meetingJson['creator_dict']['email'];
+    const title = meetingJson['title'];
+    const groupId = meetingJson['organization_id'];
+    const meetingId = meetingJson['meeting_id']
+    const description = meetingJson['description'];
+    const placeText = meetingJson['place_text'];
+    const eventTime = new Date(meetingJson['event_time']);
     const [time, date] = getDateTime(eventTime);
-    const tags = groupJson['tags']
-    const isMember = groupJson['is_me_member']
+    const tags = meetingJson['tags']
+    const isMember = meetingJson['is_me_member']
 
     const block = `
         <div class="block">
-            <img src="site_images/person_cancel.svg" alt="Отказаться" class="meeting-status">
-            <div class="meeting-status-tooltip">Отказаться</div>
+            ${ renderMeetingStatusHTML(isMember, groupId, meetingId) }
             <div class="block-content">
                 <div class="block-title-wrapper">
                     <div class="block-title">${title}</div>
