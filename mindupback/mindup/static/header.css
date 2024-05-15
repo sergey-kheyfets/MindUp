@@ -21,6 +21,53 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s, width 0.3s ease;
 }
 
+.menuGroup.profile {
+    border: none;
+    outline: none;
+    background: none;
+    font-family: "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
+    font-size: 1em;
+}
+
+.profile-info-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    right: 10px;
+    padding: 20px;
+    top: 55px;
+    width: 300px;
+    height: fit-content;
+    background: #F1FFDB;
+    border-radius: 15px;
+    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.46);
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+.profile-info-container p {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: left;
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.profile-info-container .profile-additional-info p  {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    justify-content: left;
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+    color: #424242;
+}
+
 .menuGroup {
     display: flex;
     gap: 20px;
