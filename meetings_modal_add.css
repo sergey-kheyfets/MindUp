@@ -5,9 +5,9 @@
     left: 0;
     bottom: 0;
     z-index: 1050;
-    /*pointer-events: none;*/
-    /*opacity: 0;*/
-    opacity: 1;
+    pointer-events: none;
+    opacity: 0;
+    /*opacity: 1;*/
     transition: opacity 200ms ease-in;
 }
 
@@ -35,6 +35,10 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+}
+
+.modal-view .display-none-input {
+    display: none;
 }
 
 .modal-view .name-input-label input[type="text"] {
@@ -161,6 +165,10 @@
     border-radius: 20px;
     border: none;
     outline: none;
+    box-shadow: 0 3px 5px rgba(42, 42, 42, 0.15);
+    transition: all 0.1s ease-out;
 }
 
-
+.modal-view button:hover {
+    box-shadow: 0 2px 5px rgb(148, 171, 137);
+}
