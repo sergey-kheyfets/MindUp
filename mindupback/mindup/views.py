@@ -130,13 +130,16 @@ def send_group(request):
     creator = get_user_from_cookie(request)
     title = request.POST['title']
     description = request.POST['title']
-    file = request.FILES['image']
-    file_name = creator.name + "_" + extensions.generate_random_string(10) + "." + file.name.split('.')[-1]
-    # file.name = file_name
-    # print(file.__dict__)
-    uploaded_file_url = "/mindup/groups_images/" + file_name
-    file_path = "mindup/static/groups_images/" + file_name
-    extensions.save_image_from_bytes(file_path, file.file)
+    if 'image' in request.FILES:
+        file = request.FILES['image']
+        file_name = creator.name + "_" + extensions.generate_random_string(10) + "." + file.name.split('.')[-1]
+        # file.name = file_name
+        # print(file.__dict__)
+        uploaded_file_url = "/mindup/groups_images/" + file_name
+        file_path = "mindup/static/groups_images/" + file_name
+        extensions.save_image_from_bytes(file_path, file.file)
+    else:
+        uploaded_file_url = '-'
     o = Organization(creator=creator, title=title, description=description, icon=uploaded_file_url)
     o.save()
     o.members.add(creator)
@@ -155,10 +158,11 @@ def get_tag(tag_name):
     return t
 
 
-def send_meeting(request, organization_id=2):
+def send_meeting(request):
     guest = get_user_from_cookie(request)
+    organization_id = request.POST['organization_id']
     organization = Organization.objects.get(id=organization_id)
-    title = request.POST['tag1']
+    title = request.POST['name']
     description = request.POST['description']
     picture = request.POST['place']
     place_text = request.POST['place']
@@ -174,10 +178,14 @@ def send_meeting(request, organization_id=2):
         if 'max_members_number' in request.POST else 0
     is_max_members_number_limited = request.POST['is_max_members_number_limited'] \
         if 'is_max_members_number_limited' in request.POST else False
-    tags = request.POST['tag1']
+    tag_index = 1
+    tags = []
+
+    while 'tag' + str(tag_index) in request.POST:
+        tags.append(request.POST['tag' + str(tag_index)])
+        tag_index += 1
     tags_arr = []
-    for tag in [tags]:
-        print(tag)
+    for tag in tags:
         tags_arr.append(get_tag(tag))
     d = Meeting(
         creator=guest,
@@ -194,8 +202,9 @@ def send_meeting(request, organization_id=2):
     d.save()
     for tag in tags_arr:
         d.tags.add(tag)
+    d.members.add(guest)
     d.save()
-    return HttpResponseRedirect(f"/mindup/meetings.html?group={organization_id}")
+    return HttpResponseRedirect(f"/mindup/meetings.html?group={organization_id}&title={organization.title}")
 
 
 def signup_meeting(request, group_id, meeting_id):
