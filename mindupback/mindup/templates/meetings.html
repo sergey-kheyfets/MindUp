@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="blocks.css">
     <link rel="stylesheet" href="meetings_blocks.css">
     <link rel="stylesheet" href="meetings_modal_add.css">
+    <link rel="stylesheet" href="meetings_modal_info.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 </head>
 <body>
@@ -88,12 +89,40 @@
             </form>
         </div>
     </div>
+    <div class="modal-wrapper info" id="modal-info">
+        <div class="container">
+            <div class="modal-blackout"></div>
+            <div class="modal-view">
+                <h1>Базы данных, разбор дз</h1>
+                <div class="datetime-place-info">
+                    <div class="time">22:22 02.02.22</div>
+                    <div class="place">Online</div>
+                </div>
+                <div class="modal-add-content-wrapper">
+                    <div class="tags">
+                        <div class="tag">#123</div>
+                    </div>
+                    <div class="description">
+                        Попробуем придумать идеи проектов, обсудить, насколько они хороши, доработать их
+                    </div>
+                    <div class="members-info">Участники 7/15</div>
+                    <div class="members-wrapper">
+                        <div class="member">Иьлья Рыбин</div>
+                        <div class="member">Степан Кучин</div>
+                        <div class="member">Байден Дмитрий</div>
+                    </div>
+                </div>
+                <button onclick="closeModalInfo()">Закрыть</button>
+            </div>
+        </div>
+    </div>
     <script src="network.js"></script>
     <script src="header_controller.js"></script>
     <script src="block_controller.js"></script>
     <script src="meetings.js"></script>
-    <script src="backend_meetings.js"></script>
     <script src="meetings_modal_add.js"></script>
+    <script src="meetings_modal_info.js"></script>
+    <script src="backend_meetings.js"></script>
     <script src="backend_header.js"></script>
 </body>
 </html>
