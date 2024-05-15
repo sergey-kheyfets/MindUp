@@ -10,15 +10,17 @@ const membersWrapper = modalInfo.querySelector('.members-wrapper');
 
 
 function setupMembers(members) {
+    membersWrapper.innerHTML = '';
     for (const member of members) {
         const memberDiv = document.createElement('div');
         memberDiv.className = 'member';
-        memberDiv.textContent = name;
+        memberDiv.textContent = member;
         membersWrapper.appendChild(memberDiv);
     }
 }
 
 function setupTags(tags) {
+    tagsInfo.innerHTML = '';
     for (const tag of tags) {
         const tagDiv = document.createElement('div');
         tagDiv.className = 'tag';
@@ -27,24 +29,25 @@ function setupTags(tags) {
     }
 }
 
-function getMemberCount(membersList, max, isLimited) {
+function getMemberCountSync(membersList, max, isLimited) {
     let maxStr = max.toString();
     if (!isLimited) {
         maxStr = 'Ꝏ';
     }
-    const current = membersList.result.length;
+    const current = membersList.length;
     return `${current} / ${maxStr}`;
 }
 
 async function setUpModalInfo(meetId, groupId) {
     const resTask = await sendRequest(`/api/group/${groupId}/meeting/${meetId}`);
     const res = resTask.result;
+    console.log(res)
 
     titleInfo.textContent = res['title'];
     timeInfo.textContent = 'Время: ' + res['event_time'];
     placeInfo.textContent = 'Место: ' + res['place_text'];
     descriptionInfo.textContent = 'Описание: ' + res['description'];
-    membersInfo.textContent = 'Участники: ' + getMemberCount(res['members'], res['max_members_number'], res['is_max_members_number_limited']);
+    membersInfo.textContent = 'Участники: ' + getMemberCountSync(res['members'], res['max_members_number'], res['is_max_members_number_limited']);
     setupTags(res['tags']);
     setupMembers(res['members']);
 }
