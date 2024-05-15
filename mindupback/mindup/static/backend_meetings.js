@@ -134,7 +134,7 @@ async function createMeetingsHTMLTask(meetingJson) {
     const [memberCountInfo, memberCountStyle] = await getMemberCountAndStyle(membersTask, meetingJson['max_members_number'], meetingJson['is_max_members_number_limited']);
 
     const block = `
-        <div class="block">
+        <div class="block" onclick="openModalInfo(${meetingId})">
             ${ renderMeetingStatusHTML(isMember, groupId, meetingId) }
             <div class="block-content">
                 <div class="block-title-wrapper">
