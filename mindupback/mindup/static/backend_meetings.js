@@ -16,13 +16,11 @@ async function getGroupMeetings(groupId) {
 }
 
 async function getBackgroundImageUrl(groupId) {
-    const resp = await sendRequest('/mindup/api/all_groups');
-    for (const group of resp.result) {
-        if (group['id'] == groupId) {
-            return group['icon'];
-        }
+    if (groupId === null) {
+        return '-';
     }
-    return '-';
+    const resp = await sendRequest(`/mindup/api/group/${groupId}`);
+    return resp.result['icon'];
 }
 
 async function setBackgroundImage(groupId) {
@@ -101,8 +99,8 @@ function renderMeetingStatusHTML(isMember, groupId, meetingId) {
     }
 }
 
-function setMemberCountStyle(cur, max) {
-    if (cur === max) {
+function setMemberCountStyle(cur, max, isLimited) {
+    if (cur === max && isLimited) {
         return 'background-color: #e34949';
     }
     return '';
@@ -115,7 +113,7 @@ async function getMemberCountAndStyle(memberTask, max, isLimited) {
     }
     const resMembers = await memberTask;
     const current = resMembers.result.length;
-    const style = setMemberCountStyle(Number(current), Number(max));
+    const style = setMemberCountStyle(Number(current), Number(max), isLimited);
     return [`${current} / ${maxStr}`, style];
 }
 
