@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>MindUp</title>
-    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="auth_main_styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 </head>
 <body>
-<div id="imageContainer">
-    <img src="pngwing.com.png" alt="test" class="welcomeImage">
+<div class="image-container">
+    <div class="main-background"></div>
 </div>
-<div id="loginContainer">
+<div class="login-container">
     <h1 class="MindUpTitle">MindUp</h1>
     <form action="register" method="post" id="register">
-        <h2 class="helloText">Регистрация</h2>
+        <h2 class="hello-text">Регистрация</h2>
         <h3>Введите данные пользователя</h3>
         <label>
             Имя пользователя
@@ -29,8 +30,10 @@
         <button type="submit" class="entranceButton">
             Зарегистрироваться
         </button>
+        <div class="underText">
+            Уже есть&nbsp<a href="authsdn.html">учетная запись</a>
+        </div>
     </form>
 </div>
-
 </body>
 </html>
