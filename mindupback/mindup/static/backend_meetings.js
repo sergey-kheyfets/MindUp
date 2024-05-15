@@ -64,14 +64,19 @@ function createTagsWrapper(tags) {
     return tagsWrapper;
 }
 
-function getDateTime(eventTime) {
-    const time = `${eventTime.getHours()}:${eventTime.getMinutes()}`;
-    const year = eventTime.getFullYear().toString().substring(2,4)
-    let month = (eventTime.getMonth() + 1).toString();
-    if (month.length === 1) {
-        month = '0' + month;
+function rightZeroFormat(value) {
+    const strValue = value.toString();
+    if (strValue.length === 1) {
+        return '0' + strValue;
     }
-    const date = `${eventTime.getDate()}.${month}.${year}`;
+    return strValue;
+}
+
+function getDateTime(eventTime) {
+    const time = `${rightZeroFormat(eventTime.getHours())}:${rightZeroFormat(eventTime.getMinutes())}`;
+    const year = eventTime.getFullYear().toString().substring(2,4);
+    let month = rightZeroFormat(eventTime.getMonth() + 1);
+    const date = `${rightZeroFormat(eventTime.getDate())}.${month}.${year}`;
     return [time, date];
 }
 
