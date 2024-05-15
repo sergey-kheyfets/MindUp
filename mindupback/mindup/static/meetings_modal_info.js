@@ -14,19 +14,44 @@ function setupMembers(members) {
         const memberDiv = document.createElement('div');
         memberDiv.className = 'member';
         memberDiv.textContent = name;
-
         membersWrapper.appendChild(memberDiv);
     }
 }
 
-async function setUpModalInfo(meetId) {
-    const res = sendRequest(``);
-    
+function setupTags(tags) {
+    for (const tag of tags) {
+        const tagDiv = document.createElement('div');
+        tagDiv.className = 'tag';
+        tagDiv.textContent = tag;
+        tagsInfo.appendChild(tagDiv);
+    }
+}
+
+function getMemberCount(membersList, max, isLimited) {
+    let maxStr = max.toString();
+    if (!isLimited) {
+        maxStr = 'Ꝏ';
+    }
+    const current = membersList.result.length;
+    return `${current} / ${maxStr}`;
+}
+
+async function setUpModalInfo(meetId, groupId) {
+    const resTask = await sendRequest(`/api/group/${groupId}/meeting/${meetId}`);
+    const res = resTask.result;
+
+    titleInfo.textContent = res['title'];
+    timeInfo.textContent = 'Время: ' + res['event_time'];
+    placeInfo.textContent = 'Место: ' + res['place_text'];
+    descriptionInfo.textContent = 'Описание: ' + res['description'];
+    membersInfo.textContent = 'Участники: ' + getMemberCount(res['members'], res['max_members_number'], res['is_max_members_number_limited']);
+    setupTags(res['tags']);
+    setupMembers(res['members']);
 }
 
 
-async function openModalInfo(meetId) {
-    await setUpModalInfo(meetId);
+async function openModalInfo(meetId, groupId) {
+    await setUpModalInfo(meetId, groupId);
     modalInfo.style.opacity = 1;
     modalInfo.style.pointerEvents = 'auto';
 }
