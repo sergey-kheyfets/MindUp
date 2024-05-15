@@ -64,12 +64,15 @@ def login_post(request):
 
 def register_post(request):
     user_name = request.POST['userName']
+    sur_name = request.POST['sur_name']
+    last_name = request.POST['last_name']
     email = request.POST['email']
     password = request.POST["password"]
+
     if len(Guest.objects.filter(email=email)) != 0:
         return HttpResponseBadRequest("аккаунт с таким email уже существует")
 
-    new_guest = Guest(name=user_name, email=email,
+    new_guest = Guest(name=user_name, sur_name=sur_name, last_name=last_name, email=email,
                       password=extensions.get_password_hash(password), pub_date=timezone.now())
     new_guest.save()
     response = HttpResponseRedirect("/mindup/authorisation")
@@ -97,6 +100,17 @@ def all_guests(request):
     return JsonResponse({'result': data})
 
 
+def all_tags(request):
+    return JsonResponse({'result': [tag.to_dict() for tag in MeetingTag.objects.all()]})
+
+
+def meeting_about(request, group_id, meeting_id):
+    guest = get_user_from_cookie(request)
+    meeting = Meeting.objects.get(id=meeting_id)
+    data = meeting.to_dict(guest)
+    return JsonResponse({'result': data})
+
+
 def meeting_members(request, group_id, meeting_id):
     meeting = Meeting.objects.get(id=meeting_id)
     data = [guest.to_dict() for guest in meeting.members.all()]
@@ -106,6 +120,7 @@ def meeting_members(request, group_id, meeting_id):
 def all_meetings(request):
     guest = get_user_from_cookie(request)
     data = [meeting.to_dict(guest) for meeting in Meeting.objects.all()]
+    data.sort(key=lambda x: x['event_time'])
     return JsonResponse({'result': data})
 
 
@@ -144,7 +159,7 @@ def send_group(request):
     o.save()
     o.members.add(creator)
     o.save()
-    return HttpResponseRedirect(f"/meetings.html?group={o.id}")
+    return HttpResponseRedirect(f"/meetings.html?group={o.id}&title={o.title}")
 
 
 def get_tag(tag_name):
