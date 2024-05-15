@@ -13,7 +13,7 @@
 <body>
     <header>
         <div class="menuGroup">
-            <a href="/brawlstars" class="logo">MindUp</a>
+            <div class="logo">MindUp</div>
         </div>
         <div class="menuGroup">
             <a href="groups.html" class="groupsLink">Группы</a>
@@ -29,8 +29,8 @@
                 </form>
             </div>
         </div>
-        <a href="/brawlstars" class="menuGroup profile">
-            <img src="site_images/profile.svg" alt="Profile" class="profile-svg"></img>
+        <a class="menuGroup profile">
+            <img src="site_images/profile.svg" alt="Profile" class="profile-svg">
             <p>Профиль</p>
         </a>
     </header>
@@ -145,10 +145,10 @@
                     </div>
                     <div class="datetime-place-info">
                         <label>
-                            <input type="date" name="date">
+                            <input type="date" name="date" required>
                         </label>
                         <label>
-                            <input type="time" name="time">
+                            <input type="time" name="time" required>
                         </label>
                         <label>
                             <input type="text" name="place" placeholder="Место" maxlength="35" required>

@@ -1,4 +1,5 @@
 const tagLimit = 35;
+const emailLimit = 20;
 const blocksWrapper = document.querySelector('.blocks-wrapper');
 const groupTitle = document.querySelector('.source-group-name');
 const groupIdInput = document.getElementById('meetingAddOrgId');
@@ -55,6 +56,13 @@ function getDateTime(eventTime) {
     return [time, date];
 }
 
+function shortAuthorEmail(email) {
+    if (email.length > emailLimit) {
+        return 'Email: ' + email.slice(0, emailLimit - 3) + '...';
+    }
+    return 'Email: ' + email;
+}
+
 function createMeetingsHTML(groupJson) {
     const author = `${groupJson['creator_dict']['sur_name']} ${groupJson['creator_dict']['name']}`;
     const authorEmail = groupJson['creator_dict']['email'];
@@ -95,7 +103,7 @@ function createMeetingsHTML(groupJson) {
                     <img src="site_images/person.svg" alt="person icon">
                     <div class="person-info">
                         <p class="person-name">${author}</p>
-                        <p class="person-additional-info">${authorEmail}</p>
+                        <p class="person-additional-info" title="${authorEmail}">${shortAuthorEmail(authorEmail)}</p>
                     </div>
                 </div>
             </div>

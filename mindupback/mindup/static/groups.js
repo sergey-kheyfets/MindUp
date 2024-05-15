@@ -1,3 +1,6 @@
+checkAuthorization();
+
+
 const modalAdd = document.getElementById('modal-add');
 const imageLoad = document.getElementById('group-image-upload');
 const modalImageUpload = document.querySelector('.modal-view').querySelector('.custom-image-upload');

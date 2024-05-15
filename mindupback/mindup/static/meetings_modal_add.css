@@ -130,6 +130,7 @@
     border: none;
     border-radius: 20px;
     box-shadow: 0 3px 5px rgba(42, 42, 42, 0.2);
+    text-align: center;
 }
 
 .modal-view .datetime-place-info input[type="text"] {

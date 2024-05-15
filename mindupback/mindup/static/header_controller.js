@@ -2,8 +2,9 @@ const searchInput = document.getElementById('searchInput');
 
 function search() {
     const text = searchInput.value;
-    if (text !== '')
-        alert(text);
+    if (text !== '') {
+        window.location.href = `https://www.google.com/search?q=${text}`;
+    }
 }
 
 function handleKeyPress(event) {
