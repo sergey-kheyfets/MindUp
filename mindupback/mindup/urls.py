@@ -19,7 +19,8 @@ urlpatterns = [
     path('api/all_guests', views.all_guests),
     path('api/all_meetings', views.all_meetings),
 
-    path("api/group/<int:group_id>/meetings", views.groups_meetings),
+    path("api/group/<int:group_id>", views.group_about),
+    path("api/group/<int:group_id>/meetings", views.group_meetings),
     path("api/group/<int:group_id>/meeting/<int:meeting_id>/guests", views.meeting_members),
 
     path('api/group/<int:group_id>/<int:meeting_id>/signup', views.signup_meeting),

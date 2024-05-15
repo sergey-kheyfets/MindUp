@@ -84,7 +84,6 @@ def my_groups(request):
 
 def all_groups(request):
     me = get_user_from_cookie(request)
-    print(me)
     return JsonResponse({'result': [organization.to_dict(me) for organization in Organization.objects.all()]})
 
 
@@ -99,7 +98,8 @@ def all_guests(request):
 
 
 def meeting_members(request, group_id, meeting_id):
-    data = [guest.to_dict() for guest in Guest.objects.all()]
+    meeting = Meeting.objects.get(id=meeting_id)
+    data = [guest.to_dict() for guest in meeting.members.all()]
     return JsonResponse({'result': data})
 
 
@@ -115,7 +115,12 @@ def my_meetings(request):
                              [meeting.to_dict() for meeting in Meeting.objects.filter(members=guest)]})
 
 
-def groups_meetings(request, group_id):
+def group_about(request, group_id):
+    guest = get_user_from_cookie(request)
+    return JsonResponse({'result':  Organization.objects.get(id=group_id).to_dict(guest)})
+
+
+def group_meetings(request, group_id):
     guest = get_user_from_cookie(request)
     data = [meeting.to_dict(guest) for meeting in Meeting.objects.filter(organization_id=group_id)]
     return JsonResponse({'result': data})
