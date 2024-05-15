@@ -98,7 +98,7 @@ class Meeting(models.Model):
             'event_time': self.event_time.strftime('%Y-%m-%d %H:%M:%S'),
             'is_max_members_number_limited': self.is_max_members_number_limited,
             'max_members_number': self.max_members_number,
-            'members': [member.name for member in self.members.all()],
+            'members': [f"{member.name} {member.sur_name}" for member in self.members.all()],
             'tags': [tag.title for tag in self.tags.all()],
             'is_me_member': False if guest is None else len(self.members.filter(id=guest.id)) > 0,
         }
