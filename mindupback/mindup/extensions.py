@@ -20,3 +20,9 @@ def get_password_hash(string):
 def generate_random_string(length):
     letters_and_digits = string.ascii_letters + string.digits
     return ''.join(random.choice(letters_and_digits) for _ in range(length))
+
+
+def save_image_from_bytes(file_path, image_data):
+    with open(file_path, 'wb') as file:
+        image_data.seek(0)
+        file.write(image_data.read())
