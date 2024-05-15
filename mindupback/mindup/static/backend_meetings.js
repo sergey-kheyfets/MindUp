@@ -22,6 +22,7 @@ async function getBackgroundImageUrl(groupId) {
             return group['icon'];
         }
     }
+    return '-';
 }
 
 async function setBackgroundImage(groupId) {
@@ -154,7 +155,7 @@ async function updateMeetings() {
             groupTitle.style.display = 'block';
         }
     }
-    const [result, _] = Promise.all(resultTask, backgroundTask);
+    const [result, _] = await Promise.all([resultTask, backgroundTask])
 
     const blocks = document.querySelector('.blocks-wrapper .blocks');
     for (const meeting of result) {
