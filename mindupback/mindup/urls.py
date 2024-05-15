@@ -23,6 +23,7 @@ urlpatterns = [
 
     path("api/group/<int:group_id>", views.group_about),
     path("api/group/<int:group_id>/meetings", views.group_meetings),
+    path("api/group/<int:group_id>/meeting/<int:meeting_id>", views.meeting_about),
     path("api/group/<int:group_id>/meeting/<int:meeting_id>/guests", views.meeting_members),
 
     path('api/group/<int:group_id>/<int:meeting_id>/signup', views.signup_meeting),

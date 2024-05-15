@@ -104,6 +104,13 @@ def all_tags(request):
     return JsonResponse({'result': [tag.to_dict() for tag in MeetingTag.objects.all()]})
 
 
+def meeting_about(request, group_id, meeting_id):
+    guest = get_user_from_cookie(request)
+    meeting = Meeting.objects.get(id=meeting_id)
+    data = meeting.to_dict(guest)
+    return JsonResponse({'result': data})
+
+
 def meeting_members(request, group_id, meeting_id):
     meeting = Meeting.objects.get(id=meeting_id)
     data = [guest.to_dict() for guest in meeting.members.all()]
