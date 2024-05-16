@@ -48,11 +48,11 @@
 }
 
 .modal-wrapper.info .modal-add-content-wrapper .member {
-    background: #CAFFFF;
+    background: rgba(152, 210, 155, 0.45);
     margin: 5px;
     padding: 15px 20px;
     border-radius: 10px;
-    color: #0008BF;
+    color: #1c441b;
 }
 
 .modal-wrapper.info h1 {
