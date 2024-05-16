@@ -8,6 +8,22 @@ const numberInput = document.getElementById('member_limit');
 
 let tagsCount = 0;
 
+
+function reloadForm() {
+    tagsAddHint.style.opacity = 1;
+    tagsAddHint.style.display = 'block';
+    tagsCount = 0;
+    for (const tag of tagsWrapper.querySelectorAll('label')) {
+        tag.remove();
+    }
+    limitCheckbox.checked = false;
+    for (const inputEl of modalAdd.querySelectorAll('input')) {
+        inputEl.value = '';
+    }
+    modalAdd.querySelector('textarea').value = '';
+}
+
+
 function openModal() {
     modalAdd.style.opacity = 1;
     modalAdd.style.pointerEvents = 'auto';
