@@ -32,6 +32,12 @@ async function setBackgroundImage(groupId) {
     }
 }
 
+function setTagToInput(event) {
+    event.stopPropagation();
+    searchInput.value = event.target.textContent;
+    searchInMeetings();
+}
+
 function createTagsWrapper(tags) {
     const tagsWrapper = document.createElement('div');
     tagsWrapper.classList.add('tags-wrapper');
@@ -45,6 +51,9 @@ function createTagsWrapper(tags) {
         const tagHTML = document.createElement('div');
         tagHTML.classList.add('tag');
         tagHTML.textContent = tag;
+        tagHTML.addEventListener('click', event => {
+            setTagToInput(event);
+        })
         totalLength += tag.length;
         if (totalLength >= tagLimit) {
             const button = document.createElement('button');
