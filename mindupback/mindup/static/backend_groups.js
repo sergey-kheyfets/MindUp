@@ -30,11 +30,20 @@ function createGroupHTML(groupJson) {
     return blockElement;
 }
 
-async function updateGroups() {
+async function updateGroups(pattern = '') {
     const result = await getGroups();
     const blocks = document.querySelector('.blocks');
+    for (const block of blocks.querySelectorAll('.block')) {
+        if (block.querySelector('h2') !== null) {
+            block.remove();
+        }
+    }
+
     let generalGroup;
     for (const group of result) {
+        if (!group['title'].toLowerCase().includes(pattern)) {
+            continue;
+        }
         if (group['id'] === GENERAL_GROUP_ID) {
             generalGroup = group;
             continue;
@@ -42,9 +51,23 @@ async function updateGroups() {
         const groupHTML = createGroupHTML(group);
         blocks.appendChild(groupHTML);
     }
-    const groupHTML = createGroupHTML(generalGroup);
-    blocks.appendChild(groupHTML);
+    if (generalGroup !== undefined) {
+        const groupHTML = createGroupHTML(generalGroup);
+        blocks.appendChild(groupHTML);
+    }
     setGrid();
+}
+
+
+async function searchInGroups() {
+    updateGroups(searchInput.value.toLowerCase());
+}
+
+function handleKeyPress(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        searchInGroups();
+    }
 }
 
 updateGroups();
