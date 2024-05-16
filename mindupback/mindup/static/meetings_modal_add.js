@@ -3,6 +3,9 @@ const tagsWrapper = modalAdd.querySelector('.tags');
 const tagsAddHint = tagsWrapper.querySelector('.tags-add-hint');
 const addTagButton = document.getElementById('addTag');
 
+const limitCheckbox = document.getElementById('max_members_number_input');
+const numberInput = document.getElementById('member_limit');
+
 let tagsCount = 0;
 
 function openModal() {
@@ -55,3 +58,18 @@ function addTag() {
 }
 
 addTagButton.onclick = addTag;
+
+
+
+limitCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+        numberInput.disabled = false;
+        numberInput.style.backgroundColor = "white";
+
+    } else {
+        numberInput.disabled = true;
+        numberInput.style.backgroundColor = "#f1f1f1";
+    }
+});
+
+
