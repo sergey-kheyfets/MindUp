@@ -33,10 +33,17 @@ function createGroupHTML(groupJson) {
 async function updateGroups() {
     const result = await getGroups();
     const blocks = document.querySelector('.blocks');
+    let generalGroup;
     for (const group of result) {
+        if (group['id'] === GENERAL_GROUP_ID) {
+            generalGroup = group;
+            continue;
+        }
         const groupHTML = createGroupHTML(group);
         blocks.appendChild(groupHTML);
     }
+    const groupHTML = createGroupHTML(generalGroup);
+    blocks.appendChild(groupHTML);
     setGrid();
 }
 

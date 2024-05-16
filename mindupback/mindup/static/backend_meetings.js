@@ -1,4 +1,4 @@
-const tagLimit = 35;
+const tagLimit = 25;
 const emailLimit = 20;
 const blocksWrapper = document.querySelector('.blocks-wrapper');
 const groupTitle = document.querySelector('.source-group-name');
@@ -187,6 +187,7 @@ async function updateMeetings() {
     let resultTask;
     if (groupId === null) {
         resultTask = getMeetings();
+        groupIdInput.value = GENERAL_GROUP_ID;
     } else {
         groupIdInput.value = groupId;
         resultTask = getGroupMeetings(groupId);

@@ -114,10 +114,15 @@
     margin: auto 5px;
     border-radius: 15px;
     border: none;
-    width: 100px;
+    width: fit-content;
     text-align: center;
     transition: width 0.2s ease;
     background-color: #026228;
+}
+
+.modal-view .modal-add-content-wrapper .tag {
+
+    width: 100px;
 }
 
 .modal-view .tag input {

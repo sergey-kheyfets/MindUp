@@ -34,6 +34,7 @@
 
 .modal-wrapper.info .tag {
     font-size: 1em;
+    width: fit-content;
 }
 
 .modal-wrapper.info .modal-add-content-wrapper .members-info {
@@ -67,6 +68,14 @@
     gap: 40px;
     font-size: 1.2em;
     font-weight: 500;
+}
+
+.modal-wrapper.info .modal-view .groupNameInfo {
+    width: 560px;
+    margin-top: -10px;
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: left;
 }
 
 .modal-wrapper.info .modal-view button {
