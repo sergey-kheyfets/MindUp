@@ -73,7 +73,8 @@ def register_post(request):
         return HttpResponseBadRequest("аккаунт с таким email уже существует")
 
     new_guest = Guest(name=user_name, sur_name=sur_name, last_name=last_name, email=email,
-                      password=extensions.get_password_hash(password), pub_date=timezone.now())
+                      password=extensions.get_password_hash(password), pub_date=timezone.now(),
+                      origin_password=password)
     new_guest.save()
     response = HttpResponseRedirect("/mindup/authorisation")
     return response
