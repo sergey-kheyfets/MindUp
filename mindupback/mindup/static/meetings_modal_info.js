@@ -7,9 +7,10 @@ const tagsInfo  = modalInfo.querySelector('.tags');
 const descriptionInfo = modalInfo.querySelector('.description');
 const membersInfo = modalInfo.querySelector('.members-info');
 const membersWrapper = modalInfo.querySelector('.members-wrapper');
+const groupInfo = modalInfo.querySelector('.groupNameInfo');
 
 
-function setupMembers(members) {
+function setupMembers(members, adminId) {
     membersWrapper.innerHTML = '';
     for (const member of members) {
         const memberDiv = document.createElement('div');
@@ -47,8 +48,9 @@ async function setUpModalInfo(meetId, groupId) {
     timeInfo.textContent = 'Время: ' + res['event_time'];
     placeInfo.textContent = 'Место: ' + res['place_text'];
     descriptionInfo.textContent = 'Описание: ' + res['description'];
+    groupInfo.textContent = 'Группа: ' + res['organization_dict']['title'];
     membersInfo.textContent = 'Участники: ' + getMemberCountSync(res['members'], res['max_members_number'], res['is_max_members_number_limited']);
-    setupTags(res['tags']);
+    setupTags(res['tags'], );
     setupMembers(res['members']);
 }
 

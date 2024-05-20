@@ -1,4 +1,4 @@
-const tagLimit = 35;
+const tagLimit = 25;
 const emailLimit = 20;
 const blocksWrapper = document.querySelector('.blocks-wrapper');
 const groupTitle = document.querySelector('.source-group-name');
@@ -32,6 +32,12 @@ async function setBackgroundImage(groupId) {
     }
 }
 
+function setTagToInput(event) {
+    event.stopPropagation();
+    searchInput.value = event.target.textContent;
+    searchInMeetings();
+}
+
 function createTagsWrapper(tags) {
     const tagsWrapper = document.createElement('div');
     tagsWrapper.classList.add('tags-wrapper');
@@ -45,6 +51,9 @@ function createTagsWrapper(tags) {
         const tagHTML = document.createElement('div');
         tagHTML.classList.add('tag');
         tagHTML.textContent = tag;
+        tagHTML.addEventListener('click', event => {
+            setTagToInput(event);
+        })
         totalLength += tag.length;
         if (totalLength >= tagLimit) {
             const button = document.createElement('button');
@@ -133,8 +142,7 @@ async function createMeetingsHTMLTask(meetingJson) {
 
     const [memberCountInfo, memberCountStyle] = await getMemberCountAndStyle(membersTask, meetingJson['max_members_number'], meetingJson['is_max_members_number_limited']);
 
-    const block = `
-        <div class="block" onclick="openModalInfo(${meetingId}, ${groupId})">
+    const blockContent = `
             ${ renderMeetingStatusHTML(isMember, groupId, meetingId) }
             <div class="block-content">
                 <div class="block-title-wrapper">
@@ -168,11 +176,13 @@ async function createMeetingsHTMLTask(meetingJson) {
                     </div>
                 </div>
             </div>
-        </div>
     `;
 
     const div = document.createElement('div');
-    div.innerHTML = block;
+    div.innerHTML = blockContent;
+    div.classList.add('block');
+    div.addEventListener('click', () => {openModalInfo(meetingId, groupId)});
+
 
     const blockInfo = div.querySelector('.block-info');
     const tagsWrapper = createTagsWrapper(tags);
@@ -181,12 +191,22 @@ async function createMeetingsHTMLTask(meetingJson) {
     return div;
 }
 
-async function updateMeetings() {
+function checkPattern(pattern, meetingJson) {
+    if (meetingJson['title'].toLowerCase().includes(pattern)) return true;
+    if (meetingJson['place_text'].toLowerCase().includes(pattern)) return true;
+    for (const tag of meetingJson['tags']) {
+        if (tag.toLowerCase().includes(pattern)) return true;
+    }
+    return false;
+}
+
+async function updateMeetings(pattern = '') {
     const groupId = getUrlParameter('group');
     const backgroundTask = setBackgroundImage(groupId);
     let resultTask;
     if (groupId === null) {
         resultTask = getMeetings();
+        groupIdInput.value = GENERAL_GROUP_ID;
     } else {
         groupIdInput.value = groupId;
         resultTask = getGroupMeetings(groupId);
@@ -200,9 +220,18 @@ async function updateMeetings() {
     const [resultMeetingsInfo, _] = await Promise.all([resultTask, backgroundTask])
 
     const blocks = document.querySelector('.blocks-wrapper .blocks');
+
+    for (const block of blocks.querySelectorAll('.block')) {
+        if (block.querySelector('.block-content') !== null) {
+            block.remove();
+        }
+    }
+
     let meetingBlockTasks = []
     for (const meeting of resultMeetingsInfo) {
-        meetingBlockTasks.push(createMeetingsHTMLTask(meeting))
+        if (checkPattern(pattern, meeting)) {
+            meetingBlockTasks.push(createMeetingsHTMLTask(meeting))
+        }
     }
 
     let blocksResult = await Promise.all(meetingBlockTasks);
@@ -211,6 +240,17 @@ async function updateMeetings() {
     }
 
     setGrid();
+}
+
+async function searchInMeetings() {
+    updateMeetings(searchInput.value.toLowerCase());
+}
+
+function handleKeyPress(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        searchInMeetings();
+    }
 }
 
 updateMeetings();

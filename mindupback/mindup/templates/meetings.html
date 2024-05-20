@@ -24,7 +24,7 @@
                     <label>
                         <input type="text" placeholder="Поиск" id="searchInput" onkeypress="handleKeyPress(event)">
                     </label>
-                    <button type="button" class="searchButton" onclick="search()">
+                    <button type="button" class="searchButton" onclick="searchInMeetings()">
                         <img src="site_images/search.svg" alt="search" width="21px">
                     </button>
                 </form>
@@ -56,6 +56,7 @@
         <div class="modal-blackout"></div>
         <div class="modal-view">
             <form action="/api/send_meeting" method="post" enctype="multipart/form-data">
+                <img src="/site_images/reload.svg" class="reloadImage" alt="reload" onclick="reloadForm()">
                 <label class="display-none-input">
                     <input type="text" name="organization_id" id="meetingAddOrgId">
                 </label>
@@ -78,6 +79,15 @@
                             <input type="text" name="place" placeholder="Место" maxlength="35" required>
                         </label>
                     </div>
+                    <div class="members-limit">
+                        <label>
+                            <input type="checkbox" value=True name="is_max_members_number_limited" id="max_members_number_input">
+                            Ограничить количество участников
+                        </label>
+                        <label>
+                            <input type="number" name="max_members_number" placeholder="0" min=2 id="member_limit" disabled>
+                        </label>
+                    </div>
                     <label>
                         <textarea name="description" placeholder="Описание встречи"></textarea>
                     </label>
@@ -98,6 +108,7 @@
                     <div class="time">22:22 02.02.22</div>
                     <div class="place">Online</div>
                 </div>
+                <div class="groupNameInfo"></div>
                 <div class="modal-add-content-wrapper">
                     <div class="tags">
                         <div class="tag">#123</div>
