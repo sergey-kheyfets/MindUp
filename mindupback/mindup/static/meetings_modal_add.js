@@ -3,7 +3,26 @@ const tagsWrapper = modalAdd.querySelector('.tags');
 const tagsAddHint = tagsWrapper.querySelector('.tags-add-hint');
 const addTagButton = document.getElementById('addTag');
 
+const limitCheckbox = document.getElementById('max_members_number_input');
+const numberInput = document.getElementById('member_limit');
+
 let tagsCount = 0;
+
+
+function reloadForm() {
+    tagsAddHint.style.opacity = 1;
+    tagsAddHint.style.display = 'block';
+    tagsCount = 0;
+    for (const tag of tagsWrapper.querySelectorAll('label')) {
+        tag.remove();
+    }
+    limitCheckbox.checked = false;
+    for (const inputEl of modalAdd.querySelectorAll('input')) {
+        inputEl.value = '';
+    }
+    modalAdd.querySelector('textarea').value = '';
+}
+
 
 function openModal() {
     modalAdd.style.opacity = 1;
@@ -55,3 +74,18 @@ function addTag() {
 }
 
 addTagButton.onclick = addTag;
+
+
+
+limitCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+        numberInput.disabled = false;
+        numberInput.style.backgroundColor = "white";
+
+    } else {
+        numberInput.disabled = true;
+        numberInput.style.backgroundColor = "#f1f1f1";
+    }
+});
+
+

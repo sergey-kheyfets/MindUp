@@ -33,4 +33,21 @@ imageLoad.addEventListener('change', () => {
     }
 });
 
+// const blocksWrapper = document.querySelector('.blocks-wrapper .blocks');
+// function searchInGroups() {
+//     const searchValue = searchInput.value.toLowerCase();
+//     for (const block of blocksWrapper.querySelectorAll('.block')) {
+//         const h2 = block.querySelector('h2');
+//         if (h2 === null) continue;
+//         const title = h2.textContent.toLowerCase();
+//         if (!title.includes(searchValue)) {
+//             block.style.display = 'none';
+//         } else {
+//             block.style.display = 'inline-flex';
+//         }
+//     }
+//     setGrid();
+// }
+
+
 setGrid();

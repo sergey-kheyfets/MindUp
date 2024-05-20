@@ -9,13 +9,6 @@ function search() {
     }
 }
 
-function handleKeyPress(event) {
-    if (event.keyCode === 13) {
-        event.preventDefault();
-        search();
-    }
-}
-
 function closeProfileInfo() {
     profileInfo.style.opacity = 0;
     profileInfo.style.pointerEvents = 'none';

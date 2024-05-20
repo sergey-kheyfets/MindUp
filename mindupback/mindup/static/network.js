@@ -1,3 +1,6 @@
+const GENERAL_GROUP_ID = 17;
+
+
 function sendRequest(url) {
     return fetch(url).then(response => {
         if (response.ok) {

@@ -31,10 +31,24 @@
 
 .modal-view form {
     display: flex;
+    position: relative;
     height: 100%;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+}
+
+.modal-view .reloadImage {
+    position: absolute;
+    width: 25px;
+    right: -10px;
+    top: -10px;
+    color: #0d361a;
+    transition: all 50ms ease-out;
+}
+
+.modal-view .reloadImage:hover {
+    filter: drop-shadow(0px 4px 5px rgba(79, 93, 60, 0.38));
 }
 
 .modal-view .display-none-input {
@@ -114,10 +128,15 @@
     margin: auto 5px;
     border-radius: 15px;
     border: none;
-    width: 100px;
+    width: fit-content;
     text-align: center;
     transition: width 0.2s ease;
     background-color: #026228;
+}
+
+.modal-view .modal-add-content-wrapper .tag {
+
+    width: 100px;
 }
 
 .modal-view .tag input {
@@ -137,6 +156,7 @@
 }
 
 .modal-view .datetime-place-info input,
+.modal-view .members-limit input[type="number"],
 .modal-view textarea {
     width: fit-content;
     height: 15px;
@@ -152,6 +172,39 @@
     width: 177px;
     font-size: 1.1em;
 }
+
+
+
+
+.modal-view .members-limit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-view .members-limit input[type="number"] {
+    width: 70px;
+    padding-left: 20px;
+    font-size: 1em;
+}
+
+.modal-view .members-limit input[type="number"] {
+    margin: 0;
+    background-color:  #f1f1f1;
+}
+
+.modal-view .members-limit input[type="number"]::placeholder {
+    color: rgba(98, 98, 98, 0.6);
+}
+
+.modal-view .members-limit label {
+    font-family: Fira, sans-serif;
+    font-weight: normal;
+    font-size: 1.1em;
+    margin: 0;
+}
+
+
 
 .modal-view textarea {
     width: 480px;
