@@ -16,7 +16,7 @@
     flex-direction: column;
 }
 
-.modal-wrapper.info .modal-add-content-wrapper {
+.modal-wrapper.info .modal-content-wrapper {
     width: inherit;
     height: 400px;
     margin-top: 0;
@@ -24,27 +24,26 @@
     overflow-x: hidden;
 }
 
-.modal-wrapper.info .modal-add-content-wrapper .tags {
+.modal-wrapper.info .modal-content-wrapper .tags {
     justify-content: left;
     width: inherit;
 }
 
 .modal-wrapper.info .tag {
     font-size: 1em;
-    width: fit-content;
 }
 
-.modal-wrapper.info .modal-add-content-wrapper .members-info {
+.modal-wrapper.info .modal-content-wrapper .members-info {
     margin-top: 10px;
     font-size: 1.5em;
 }
 
-.modal-wrapper.info .modal-add-content-wrapper .members-wrapper {
+.modal-wrapper.info .modal-content-wrapper .members-wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
 
-.modal-wrapper.info .modal-add-content-wrapper .member {
+.modal-wrapper.info .modal-content-wrapper .member {
     background: rgba(152, 210, 155, 0.45);
     margin: 5px;
     padding: 15px 20px;
@@ -92,11 +91,11 @@
         font-size: 1.7em;
     }
 
-    .modal-wrapper.info .modal-add-content-wrapper .members-wrapper {
+    .modal-wrapper.info .modal-content-wrapper .members-wrapper {
         grid-template-columns: repeat(1, 1fr);
     }
 
-    .modal-wrapper.info .modal-add-content-wrapper .members-info {
+    .modal-wrapper.info .modal-content-wrapper .members-info {
         font-size: 1.3em;
     }
 

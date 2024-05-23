@@ -20,16 +20,11 @@
 }
 
 
-.modal-add-content-wrapper {
-    position: relative;
+.modal-content-wrapper {
     width: 560px;
-    height: 300px;
+    height: 360px;
     padding-left: 40px;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    overflow-y: auto;
+    margin-top: 30px;
 }
 
 .modal-view .tags {
@@ -56,7 +51,7 @@
     background-color: #026228;
 }
 
-.modal-view .modal-add-content-wrapper .tag {
+.modal-view .modal-content-wrapper .tag {
     width: 100px;
 }
 
