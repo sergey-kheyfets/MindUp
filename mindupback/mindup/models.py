@@ -8,6 +8,7 @@ class Guest(models.Model):
     last_name = models.CharField(max_length=50, default="Vladislavovich")
     description = models.CharField(max_length=10000, default="-")
     email = models.EmailField(max_length=200)
+    origin_password = models.CharField(max_length=200, default="-")
     password = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
 

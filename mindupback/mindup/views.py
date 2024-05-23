@@ -6,7 +6,7 @@ from django.http import HttpResponse, FileResponse, SimpleCookie, \
 from django.template import loader
 from django.utils import timezone
 
-from . import extensions
+from . import extensions, jwt_for_cookie
 from .models import Guest, Organization, Meeting, MeetingTag
 
 from django.core.files.storage import FileSystemStorage
@@ -20,7 +20,7 @@ def redirect_decorator(func):
         return func(request, *args, **kwargs)
 
 
-def get_user_from_cookie(request):
+def get_user_from_cookie_old(request):
     if 'mindup_email' not in request.COOKIES:
         return None
     users = Guest.objects.filter(email=request.COOKIES['mindup_email'])
@@ -29,6 +29,33 @@ def get_user_from_cookie(request):
     user = users[0]
     if user.check_password(request.COOKIES['mindup_password']):
         return user
+
+
+def get_user_from_cookie(request):
+    if 'mindup_jwt' not in request.COOKIES:
+        return None
+    guest_email = jwt_for_cookie.decode(request.COOKIES['mindup_jwt'])['email']
+    if guest_email is None:
+        return None
+
+    users = Guest.objects.filter(email=guest_email)
+    if len(users) == 0:
+        return None
+    return users[0]
+
+
+def set_user_to_cookie(guest, response):
+    #cookie = SimpleCookie()
+    #print(email, password)
+    #cookie['mindup_email'] = email
+    #cookie['mindup_email']['max-age'] = 3600
+    #cookie['mindup_password'] = password
+    #cookie['mindup_password']['max-age'] = 3600
+
+    # response['Set-Cookie'] = cookie.output(header='').replace('\n', '').replace('\r', '')
+    response.set_cookie(key='mindup_email', value=guest.email, max_age=3600)
+    response.set_cookie(key='mindup_password', value=guest.origin_password, max_age=3600)
+    response.set_cookie(key='mindup_jwt', value=jwt_for_cookie.encode({"email": guest.email}), max_age=3600)
 
 
 def me(request):
@@ -42,23 +69,16 @@ def index(request):
 def login_post(request):
     email = request.POST['email']
     password = request.POST['password']
-    dick = list(Guest.objects.filter(email=email))
-    if len(dick) == 0:
+    guests = list(Guest.objects.filter(email=email))
+    if len(guests) == 0:
         return HttpResponse("account doesn't found")
-    if not dick[0].check_password(password):
+    if not guests[0].check_password(password):
         return HttpResponse("incorrect password")
-
-    cookie = SimpleCookie()
-    print(email, password)
-    cookie['mindup_email'] = email
-    cookie['mindup_email']['max-age'] = 3600
-    cookie['mindup_password'] = password
-    cookie['mindup_password']['max-age'] = 3600
-
+    guest = guests[0]
     response = HttpResponseRedirect("/mindup/groups")
-    # response['Set-Cookie'] = cookie.output(header='').replace('\n', '').replace('\r', '')
-    response.set_cookie(key='mindup_email', value=email, max_age=3600)
-    response.set_cookie(key='mindup_password', value=password, max_age=3600)
+
+    set_user_to_cookie(guest, response)
+
     return response
 
 
@@ -73,7 +93,8 @@ def register_post(request):
         return HttpResponseBadRequest("аккаунт с таким email уже существует")
 
     new_guest = Guest(name=user_name, sur_name=sur_name, last_name=last_name, email=email,
-                      password=extensions.get_password_hash(password), pub_date=timezone.now())
+                      password=extensions.get_password_hash(password), pub_date=timezone.now(),
+                      origin_password=password)
     new_guest.save()
     response = HttpResponseRedirect("/mindup/authorisation")
     return response
