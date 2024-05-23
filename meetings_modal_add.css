@@ -41,20 +41,6 @@
     display: none;
 }
 
-.modal-view .name-input-label input[type="text"] {
-    width: 500px;
-    height: 40px;
-    padding: 0 10px;
-    background: #ffffff;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    box-shadow: 0 3px 5px rgba(42, 42, 42, 0.2); /* гориз,  верт смещение, размытие, цвет */;
-    text-align: center;
-    font-size: 1.3em;
-
-}
-
 .modal-view input[type="text"]::placeholder {
     text-align: center;
     transition: all 0.2s ease;
