@@ -59,11 +59,13 @@ async function openModalInfo(meetId, groupId) {
     await setUpModalInfo(meetId, groupId);
     modalInfo.style.opacity = 1;
     modalInfo.style.pointerEvents = 'auto';
+    meetingsBody.style.overflow = 'hidden';
 }
 
 function closeModalInfo() {
     modalInfo.style.opacity = 0;
     modalInfo.style.pointerEvents = 'none';
+    meetingsBody.style.overflow = 'auto';
 }
 
 modalInfo.querySelector('.modal-blackout').onclick = closeModalInfo;

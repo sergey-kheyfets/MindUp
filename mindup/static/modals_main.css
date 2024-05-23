@@ -79,3 +79,24 @@
 }
 
 
+
+.modal-view button {
+    height: 40px;
+    width: 170px;
+    margin: auto auto 0 auto;
+
+    background: #038C00;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 1.3em;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    box-shadow: 0 3px 5px rgba(42, 42, 42, 0.15);
+    transition: all 0.1s ease-out;
+}
+
+.modal-view button:hover {
+    box-shadow: 0 2px 5px rgb(148, 171, 137);
+}
+
