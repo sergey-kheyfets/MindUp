@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=ma82vhj*xo2br!t$qa7^&1f3bm+89z5i=nes9(hv%x*@eils*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mindup.na4u.ru', '127.0.0.1', '192.168.0.104']
+ALLOWED_HOSTS = ['mindup.na4u.ru', '127.0.0.1', '192.168.0.105']
 
 # Application definition
 

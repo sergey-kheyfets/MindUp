@@ -3,6 +3,7 @@ body {
     display: flex;
     margin: 0;
     justify-content: center;
+    height: 100vh;
 }
 
 .image-container {
@@ -30,7 +31,6 @@ body {
     justify-content: center;
     align-items:center;
     width: 100vh;
-    height: 100vh;
     box-shadow: -5px 0 5px  rgba(194, 194, 194, 0.2);
 }
 
@@ -122,6 +122,13 @@ a:link {
     .login-container {
         width: 80%;
         box-shadow: none;
+        margin: auto 0;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .login-container {
+        width: 100%;
     }
 }
 
