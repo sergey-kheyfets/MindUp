@@ -14,7 +14,7 @@ from django.core.files.storage import FileSystemStorage
 from .web_extensions import my_decorator, get_user_from_cookie, set_user_to_cookie
 
 
-@my_decorator(is_user_required=True)
+@my_decorator()
 def me(request):
     return JsonResponse(get_user_from_cookie(request).to_dict())
 
@@ -26,8 +26,8 @@ def index(request):
     return HttpResponseRedirect("/mindup/authorisation")
 
 
-@my_decorator()
 def login_post(request):
+    print(request.POST)
     email = request.POST['email']
     password = request.POST['password']
     guests = list(Guest.objects.filter(email=email))
@@ -43,7 +43,6 @@ def login_post(request):
     return response
 
 
-@my_decorator()
 def register_post(request):
     user_name = request.POST['userName']
     sur_name = request.POST['sur_name']

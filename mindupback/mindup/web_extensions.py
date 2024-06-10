@@ -1,7 +1,7 @@
 from django.http import HttpResponse, FileResponse, SimpleCookie, \
     HttpResponseRedirect, JsonResponse, HttpResponseBadRequest, Http404
 
-from . import extensions, jwt_for_cookie
+from . import jwt_for_cookie
 from .models import Guest, Organization, Meeting, MeetingTag
 
 
@@ -10,8 +10,8 @@ def my_decorator(is_user_required=False, rickroll=False):
         def result(request, *args, **kwargs):
             user = get_user_from_cookie(request)
             if user is None and is_user_required:
-                return HttpResponseRedirect("/mindup/login")
-            elif user is not None and user.last_name == "zv" and rickroll:
+                return HttpResponseRedirect("/mindup/authorisation")
+            elif user is not None and user.last_name == "zv" and (rickroll or True):
                 return HttpResponseRedirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
             request.user = user
             return func(request, *args, **kwargs)
@@ -40,9 +40,10 @@ def get_user_from_cookie_old(request):
 
 
 def get_user_from_cookie(request):
-    if 'mindup_jwt' not in request.COOKIES:
+    decoded_result = jwt_for_cookie.decode(request.COOKIES['mindup_jwt'])
+    if decoded_result is None or 'email' not in decoded_result:
         return None
-    guest_email = jwt_for_cookie.decode(request.COOKIES['mindup_jwt'])['email']
+    guest_email = decoded_result['email']
     if guest_email is None:
         return None
 
