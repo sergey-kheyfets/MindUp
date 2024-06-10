@@ -3,8 +3,10 @@ from django.http import HttpResponse, FileResponse, SimpleCookie,\
 #from PIL import Image
 #from io import BytesIO
 import os
+from .web_extensions import my_decorator
 
 
+@my_decorator(rickroll=True)
 def get_html_template(request, file_name):
     file_path = f"mindup/templates/{file_name}.html"
     if not os.path.isfile(file_path):
@@ -13,6 +15,7 @@ def get_html_template(request, file_name):
     return HttpResponse(open(file_path, encoding="utf8"))
 
 
+@my_decorator(rickroll=True)
 def get_folder_html_template(request, folder_name, file_name):
     file_path = f"mindup/templates/{folder_name}/{file_name}.html"
     if not os.path.isfile(file_path):
@@ -21,6 +24,7 @@ def get_folder_html_template(request, folder_name, file_name):
     return HttpResponse(open(file_path, encoding="utf8"))
 
 
+@my_decorator(rickroll=True)
 def get_static(request, file_name, file_extension):
     content_type = "javascript" if file_extension == "js" else file_extension
     file_path = f"mindup/static/{file_name}.{file_extension}"
@@ -30,6 +34,7 @@ def get_static(request, file_name, file_extension):
     return HttpResponse(open(file_path, encoding="utf8"), content_type=f"text/{content_type}")
 
 
+@my_decorator(rickroll=True)
 def get_folder_static(request, folder_name, file_name, file_extension):
     file_path = f"mindup/static/{folder_name}/{file_name}.{file_extension}"
     content_type = "javascript" if file_extension == "js" else file_extension
@@ -38,6 +43,7 @@ def get_folder_static(request, folder_name, file_name, file_extension):
     return HttpResponse(open(file_path, encoding="utf8"), content_type=f"text/{content_type}")
 
 
+@my_decorator(rickroll=True)
 def get_img(request, file_name, file_extension):
     image_path = f"mindup/static/{file_name}.{file_extension}"
     if not os.path.isfile(image_path):
@@ -48,6 +54,7 @@ def get_img(request, file_name, file_extension):
     return img_from_path(image_path, file_extension)
 
 
+@my_decorator(rickroll=True)
 def get_folder_img(request, folder_name, file_name, file_extension):
     image_path = f"mindup/static/{folder_name}/{file_name}.{file_extension}"
     if not os.path.isfile(image_path):
@@ -58,6 +65,7 @@ def get_folder_img(request, folder_name, file_name, file_extension):
     return img_from_path(image_path, file_extension)
 
 
+@my_decorator(rickroll=True)
 def img_from_path2(image_path, file_extension):
     pass
     # file_extension == "jpg":
@@ -73,6 +81,7 @@ def img_from_path2(image_path, file_extension):
     #return HttpResponse(image_byte_array.getvalue(), content_type=f"image/{file_extension.lower()}")
 
 
+@my_decorator(rickroll=True)
 def img_from_path(image_path, file_extension):
     if file_extension == "jpg":
         file_extension = "jpeg"
