@@ -189,6 +189,7 @@
 @media screen and (max-width: 600px) {
     .modal-wrapper.add {
         .modal-view {
+            height: 80%;
             width: 290px;
             padding: 15px 25px 25px 10px;
         }
