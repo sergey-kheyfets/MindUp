@@ -35,7 +35,6 @@ async function setBackgroundImage(groupId) {
 function setTagToInput(event) {
     event.stopPropagation();
     searchInput.value = event.target.textContent;
-    searchInMeetings();
 }
 
 function createTagsWrapper(tags) {
@@ -100,7 +99,7 @@ function meetingLimitReached(event) {
 }
 
 function renderMeetingStatusHTML(isMember, groupId, meetingId, canJoin) {
-    if (isMember) { 
+    if (isMember) {
         const url = `/api/group/${groupId}/${meetingId}/unsignup`;
         const func = `fetch('${url}').then(() => location.reload())`;
         return `<img src="site_images/person_cancel.svg" alt="Отказаться" class="meeting-status" onclick="${func}">
