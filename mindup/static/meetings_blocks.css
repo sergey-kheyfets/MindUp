@@ -63,6 +63,7 @@
     align-items: center;
     padding-left: 10px;
     width: 230px;
+    overflow: hidden;
 }
 
 .block .block-title {
@@ -98,6 +99,16 @@
 
 .place-wrapper p {
     margin: 0;
+}
+
+.place-wrapper {
+    max-width: 150px;
+    overflow: hidden;
+}
+
+.person-container {
+    overflow: hidden;
+    max-width: 220px;
 }
 
 .place-wrapper,
