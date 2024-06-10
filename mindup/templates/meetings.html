@@ -53,9 +53,9 @@
             <div class="block add">Добавить встречу</div>
         </div>
     </div>
-    <div class="modal-wrapper" id="modal-add">
+    <div class="modal-wrapper add" id="modal-add">
         <div class="modal-blackout"></div>
-        <div class="modal-view">
+        <div class="modal-view add">
             <form action="/api/send_meeting" method="post" enctype="multipart/form-data">
                 <img src="/site_images/reload.svg" class="reloadImage" alt="reload" onclick="reloadForm()">
                 <label class="display-none-input">
@@ -93,7 +93,7 @@
                         <textarea name="description" placeholder="Описание встречи"></textarea>
                     </label>
                 </div>
-                <div style="display: flex; justify-content: space-between; width: 380px">
+                <div class="button-wrapper">
                     <button type="button" onclick="closeModal()" style="background: rgb(171,171,171);">Отмена</button>
                     <button type="submit">Создать</button>
                 </div>
@@ -103,7 +103,7 @@
     <div class="modal-wrapper info" id="modal-info">
         <div class="container">
             <div class="modal-blackout"></div>
-            <div class="modal-view">
+            <div class="modal-view info">
                 <h1>Базы данных, разбор дз</h1>
                 <div class="datetime-place-info">
                     <div class="time">22:22 02.02.22</div>
