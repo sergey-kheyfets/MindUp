@@ -11,61 +11,22 @@ from .models import Guest, Organization, Meeting, MeetingTag
 
 from django.core.files.storage import FileSystemStorage
 
-
-def redirect_decorator(func):
-    def dick(request, *args, **kwargs):
-        user = get_user_from_cookie(request)
-        if user is None:
-            return HttpResponseRedirect("/mindup/login")
-        return func(request, *args, **kwargs)
+from .web_extensions import my_decorator, get_user_from_cookie, set_user_to_cookie
 
 
-def get_user_from_cookie_old(request):
-    if 'mindup_email' not in request.COOKIES:
-        return None
-    users = Guest.objects.filter(email=request.COOKIES['mindup_email'])
-    if len(users) == 0:
-        return None
-    user = users[0]
-    if user.check_password(request.COOKIES['mindup_password']):
-        return user
-
-
-def get_user_from_cookie(request):
-    if 'mindup_jwt' not in request.COOKIES:
-        return None
-    guest_email = jwt_for_cookie.decode(request.COOKIES['mindup_jwt'])['email']
-    if guest_email is None:
-        return None
-
-    users = Guest.objects.filter(email=guest_email)
-    if len(users) == 0:
-        return None
-    return users[0]
-
-
-def set_user_to_cookie(guest, response):
-    #cookie = SimpleCookie()
-    #print(email, password)
-    #cookie['mindup_email'] = email
-    #cookie['mindup_email']['max-age'] = 3600
-    #cookie['mindup_password'] = password
-    #cookie['mindup_password']['max-age'] = 3600
-
-    # response['Set-Cookie'] = cookie.output(header='').replace('\n', '').replace('\r', '')
-    response.set_cookie(key='mindup_email', value=guest.email, max_age=3600)
-    response.set_cookie(key='mindup_password', value=guest.origin_password, max_age=3600)
-    response.set_cookie(key='mindup_jwt', value=jwt_for_cookie.encode({"email": guest.email}), max_age=3600)
-
-
+@my_decorator(is_user_required=True)
 def me(request):
     return JsonResponse(get_user_from_cookie(request).to_dict())
 
 
+@my_decorator()
 def index(request):
-    return HttpResponse(open("mindup/templates/authorisation.html", encoding="utf8"))
+    if request.user is not None:
+        return HttpResponseRedirect("/mindup/meetings")
+    return HttpResponseRedirect("/mindup/authorisation")
 
 
+@my_decorator()
 def login_post(request):
     email = request.POST['email']
     password = request.POST['password']
@@ -82,6 +43,7 @@ def login_post(request):
     return response
 
 
+@my_decorator()
 def register_post(request):
     user_name = request.POST['userName']
     sur_name = request.POST['sur_name']
@@ -100,70 +62,80 @@ def register_post(request):
     return response
 
 
+@my_decorator()
 def my_groups(request):
-    me = get_user_from_cookie(request)
     return JsonResponse({'result':
-                             [organization.to_dict() for organization in Organization.objects.filter(members=me.id)]})
+                             [organization.to_dict() for organization in Organization.objects.filter(members=request.user.id)]})
 
 
+@my_decorator()
 def all_groups(request):
-    me = get_user_from_cookie(request)
-    return JsonResponse({'result': [organization.to_dict(me) for organization in Organization.objects.all()]})
+    return JsonResponse({'result': [organization.to_dict(request.user) for organization in Organization.objects.all()]})
 
 
+@my_decorator()
 def my_account(request):
     data = [get_user_from_cookie(request).to_dict()]
     return JsonResponse({'result': data})
 
 
+@my_decorator()
 def all_guests(request):
     data = [guest.to_dict() for guest in Guest.objects.all()]
     return JsonResponse({'result': data})
 
 
+@my_decorator()
 def all_tags(request):
     return JsonResponse({'result': [tag.to_dict() for tag in MeetingTag.objects.all()]})
 
 
+@my_decorator()
 def meeting_about(request, group_id, meeting_id):
-    guest = get_user_from_cookie(request)
+    guest = request.user
     meeting = Meeting.objects.get(id=meeting_id)
     data = meeting.to_dict(guest)
     return JsonResponse({'result': data})
 
 
+@my_decorator()
 def meeting_members(request, group_id, meeting_id):
     meeting = Meeting.objects.get(id=meeting_id)
     data = [guest.to_dict() for guest in meeting.members.all()]
     return JsonResponse({'result': data})
 
 
+@my_decorator()
 def all_meetings(request):
-    guest = get_user_from_cookie(request)
+    guest = request.user
     data = [meeting.to_dict(guest) for meeting in Meeting.objects.all()]
     data.sort(key=lambda x: x['event_time'])
     return JsonResponse({'result': data})
 
 
+@my_decorator()
 def my_meetings(request):
-    guest = get_user_from_cookie(request)
+    guest =request.user
     return JsonResponse({'result':
                              [meeting.to_dict() for meeting in Meeting.objects.filter(members=guest)]})
 
 
+@my_decorator()
 def group_about(request, group_id):
-    guest = get_user_from_cookie(request)
+    guest = request.user
     return JsonResponse({'result':  Organization.objects.get(id=group_id).to_dict(guest)})
 
 
+@my_decorator()
 def group_meetings(request, group_id):
-    guest = get_user_from_cookie(request)
+    guest = request.user
     data = [meeting.to_dict(guest) for meeting in Meeting.objects.filter(organization_id=group_id)]
     return JsonResponse({'result': data})
 
 
+@my_decorator()
 def send_group(request):
-    creator = get_user_from_cookie(request)
+    creator = request.user
     title = request.POST['title']
     description = request.POST['title']
     if 'image' in request.FILES:
@@ -183,6 +155,7 @@ def send_group(request):
     return HttpResponseRedirect(f"/meetings.html?group={o.id}&title={o.title}")
 
 
+@my_decorator()
 def get_tag(tag_name):
     aa = MeetingTag.objects.filter(title=tag_name)
     if len(aa) > 0:
@@ -194,9 +167,13 @@ def get_tag(tag_name):
     return t
 
 
+@my_decorator()
 def send_meeting(request):
-    guest = get_user_from_cookie(request)
-    organization_id = request.POST['organization_id']
+    guest = request.user
+    if 'organization_id' in request.POST and request.POST['organization_id'].isdigit():
+        organization_id = int(request.POST['organization_id'])
+    else:
+        organization_id = 17
     organization = Organization.objects.get(id=organization_id)
     title = request.POST['name']
     description = request.POST['description']
@@ -210,7 +187,7 @@ def send_meeting(request):
         month=int(request.POST['date'].split("-")[1]),
         day=int(request.POST['date'].split("-")[2]),
     )
-    max_members_number = request.POST['max_members_number'] \
+    max_members_number = min(int(request.POST['max_members_number']), 9999999) \
         if 'max_members_number' in request.POST else 0
     is_max_members_number_limited = request.POST['is_max_members_number_limited'] \
         if 'is_max_members_number_limited' in request.POST else False
@@ -223,6 +200,11 @@ def send_meeting(request):
     tags_arr = []
     for tag in tags:
         tags_arr.append(get_tag(tag))
+    if len(Meeting.objects.filter(organization=organization, title=title, description=description)) > 0:
+        return HttpResponse('<h1><blink>возможно уже есть встреча с похожей тематикой в этой группе</blink></h1>'
+                            '<script>function openNewWindow() {window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "width=500,height=500");}</script>'
+                            '<button onclick="openNewWindow()" id="228"><h2><b>Сообщить об ошибке</b></h2></button>'
+                            '<script>document.getElementById("2288").click()</script>')
     d = Meeting(
         creator=guest,
         organization=organization,
@@ -243,17 +225,17 @@ def send_meeting(request):
     return HttpResponseRedirect(f"/mindup/meetings.html?group={organization_id}&title={organization.title}")
 
 
+@my_decorator()
 def signup_meeting(request, group_id, meeting_id):
-    me = get_user_from_cookie(request)
     meeting = Meeting.objects.get(id=meeting_id)
-    meeting.members.add(me)
+    meeting.members.add(request.user)
     meeting.save()
     return JsonResponse({'result': 'success'})
 
 
+@my_decorator()
 def unsignup_meeting(request, group_id, meeting_id):
-    me = get_user_from_cookie(request)
     meeting = Meeting.objects.get(id=meeting_id)
-    meeting.members.remove(me)
+    meeting.members.remove(request.user)
     meeting.save()
     return JsonResponse({'result': 'success'})
