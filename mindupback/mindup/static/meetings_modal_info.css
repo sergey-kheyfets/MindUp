@@ -12,6 +12,7 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    padding: 40px;
 }
 
 .modal-wrapper.info .container {
@@ -22,14 +23,16 @@
 }
 
 .modal-wrapper.info .modal-add-content-wrapper {
-    width: 560px;
+    width: inherit;
     height: 400px;
-    padding-left: 0;
     margin-top: 0;
+    padding-left: 0;
+    overflow-x: hidden; 
 }
 
 .modal-wrapper.info .modal-add-content-wrapper .tags {
     justify-content: left;
+    width: inherit;
 }
 
 .modal-wrapper.info .tag {
@@ -57,21 +60,21 @@
 
 .modal-wrapper.info h1 {
     font-weight: 500;
-    width: 560px;
+    width: inherit;
     margin: 0;
 }
 
 .modal-wrapper.info .modal-view .datetime-place-info {
     display: flex;
     justify-content: left;
-    width: 560px;
+    width: inherit;
     gap: 40px;
     font-size: 1.2em;
     font-weight: 500;
 }
 
 .modal-wrapper.info .modal-view .groupNameInfo {
-    width: 560px;
+    width: inherit;
     margin-top: -10px;
     font-size: 1.2em;
     font-weight: 500;
@@ -81,4 +84,37 @@
 .modal-wrapper.info .modal-view button {
     background: #038C00;
     margin: 0 auto;
+}
+
+
+@media screen and (max-width: 600px) {
+    .modal-wrapper.info .modal-view {
+        width: 290px;
+        padding: 25px;
+    }
+
+    .modal-wrapper.info .modal-view h1 {
+        font-size: 1.7em;
+    }
+
+    .modal-wrapper.info .modal-add-content-wrapper .members-wrapper {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .modal-wrapper.info .modal-add-content-wrapper .members-info {
+        font-size: 1.3em;
+    }
+
+    .modal-wrapper.info .modal-view .datetime-place-info {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 1.1em;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .modal-wrapper.info .modal-view {
+        width: 250px;
+        padding: 10px 20px;
+    }
 }
