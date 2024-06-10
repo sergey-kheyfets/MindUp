@@ -94,22 +94,30 @@ function shortAuthorEmail(email) {
     return 'Email: ' + email;
 }
 
-function renderMeetingStatusHTML(isMember, groupId, meetingId) {
-    if (isMember) {
+function meetingLimitReached(event) {
+    alert('На встречу записано максимальное количество человек');
+    event.stopPropagation();
+}
+
+function renderMeetingStatusHTML(isMember, groupId, meetingId, canJoin) {
+    if (isMember) { 
         const url = `/api/group/${groupId}/${meetingId}/unsignup`;
         const func = `fetch('${url}').then(() => location.reload())`;
         return `<img src="site_images/person_cancel.svg" alt="Отказаться" class="meeting-status" onclick="${func}">
                 <div class="meeting-status-tooltip">Отказаться</div>`;
-    } else {
+    } else if (canJoin) {
         const url = `/api/group/${groupId}/${meetingId}/signup`;
         const func = `fetch('${url}').then(() => location.reload())`;
         return `<img src="site_images/person_ok.svg" alt="Записаться" class="meeting-status" onclick="${func}">
+                <div class="meeting-status-tooltip">Записаться</div>`;
+    } else {
+        return `<img src="site_images/person_ok.svg" alt="Записаться" class="meeting-status" onclick="meetingLimitReached(event)">
                 <div class="meeting-status-tooltip">Записаться</div>`;
     }
 }
 
 function setMemberCountStyle(cur, max, isLimited) {
-    if (cur === max && isLimited) {
+    if (cur >= max && isLimited) {
         return 'background-color: #e34949';
     }
     return '';
@@ -139,11 +147,13 @@ async function createMeetingsHTMLTask(meetingJson) {
     const [time, date] = getDateTime(eventTime);
     const tags = meetingJson['tags'];
     const isMember = meetingJson['is_me_member'];
+    const maxMemberCount = meetingJson['max_members_number'];
+    const isLimited = meetingJson['is_max_members_number_limited'];
 
-    const [memberCountInfo, memberCountStyle] = await getMemberCountAndStyle(membersTask, meetingJson['max_members_number'], meetingJson['is_max_members_number_limited']);
+    const [memberCountInfo, memberCountStyle] = await getMemberCountAndStyle(membersTask, maxMemberCount, isLimited);
 
     const blockContent = `
-            ${ renderMeetingStatusHTML(isMember, groupId, meetingId) }
+            ${ renderMeetingStatusHTML(isMember, groupId, meetingId, memberCountStyle === '') }
             <div class="block-content">
                 <div class="block-title-wrapper">
                     <div class="block-title">${title}</div>
