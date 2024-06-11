@@ -157,11 +157,11 @@ def send_group(request):
 
 @my_decorator()
 def get_tag(tag_name):
+    if tag_name[0] != '#':
+        tag_name = '#' + tag_name
     aa = MeetingTag.objects.filter(title=tag_name)
     if len(aa) > 0:
         return aa[0]
-    if tag_name[0] != '#':
-        tag_name = '#' + tag_name
     t = MeetingTag(title=tag_name)
     t.save()
     return t
