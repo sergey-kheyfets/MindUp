@@ -10,7 +10,8 @@ def my_decorator(is_user_required=False, rickroll=False):
         def result(request, *args, **kwargs):
             user = get_user_from_cookie(request)
             if user is None and is_user_required:
-                return HttpResponseRedirect("/mindup/authorisation")
+                if "/mindup/authorisation" not in request.build_absolute_uri():
+                    return HttpResponseRedirect("/mindup/authorisation")
             elif user is not None and user.last_name == "zv" and (rickroll or True):
                 return HttpResponseRedirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
             request.user = user
@@ -40,6 +41,8 @@ def get_user_from_cookie_old(request):
 
 
 def get_user_from_cookie(request):
+    if 'mindup_jwt' not in request.COOKIES:
+        return None
     decoded_result = jwt_for_cookie.decode(request.COOKIES['mindup_jwt'])
     if decoded_result is None or 'email' not in decoded_result:
         return None

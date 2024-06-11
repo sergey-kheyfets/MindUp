@@ -19,7 +19,7 @@ function getUrlParameter(param) {
 }
 
 function checkAuthorization() {
-    if (document.cookie.split(';').length < 0) {
-        window.location.href = '/';
+    if (document.cookie.split(';').length < 2) {
+        window.location.href = '/authorisation.html';
     }
 }
