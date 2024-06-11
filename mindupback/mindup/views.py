@@ -12,6 +12,7 @@ from .models import Guest, Organization, Meeting, MeetingTag
 from django.core.files.storage import FileSystemStorage
 
 from .web_extensions import my_decorator, get_user_from_cookie, set_user_to_cookie
+from .rofls import Rofls
 
 
 @my_decorator()
@@ -201,9 +202,7 @@ def send_meeting(request):
         tags_arr.append(get_tag(tag))
     if len(Meeting.objects.filter(organization=organization, title=title, description=description)) > 0:
         return HttpResponse('<h1><blink>возможно уже есть встреча с похожей тематикой в этой группе</blink></h1>'
-                            '<script>function openNewWindow() {window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "width=500,height=500");}</script>'
-                            '<button onclick="openNewWindow()" id="228"><h2><b>Сообщить об ошибке</b></h2></button>'
-                            '<script>document.getElementById("2288").click()</script>')
+                            + Rofls.open_window)
     d = Meeting(
         creator=guest,
         organization=organization,
