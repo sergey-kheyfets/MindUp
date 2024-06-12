@@ -54,48 +54,51 @@
 
 
 @media screen and (max-width: 800px) {
-    .modal-wrapper {
-        .modal-view {
-            width: 500px;
-        }
+    .modal-wrapper .modal-view {
+        width: 500px;
+    }
 
-        .name-input-label input[type="text"] {
-            width: 420px;
-        }
+    .modal-wrapper .name-input-label input[type="text"] {
+        width: 420px;
+    }
 
-        .custom-image-upload {
-            width: 180px;
-            height: 120px;
-        }
+    .modal-wrapper .custom-image-upload {
+        width: 255px;
+        height: 170px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .modal-wrapper {
-        .modal-view {
-            height: 80%;
-            width: 290px;
-        }
+    .modal-wrapper .modal-view {
+        height: 320px;
+        width: 290px;
+    }
 
-        .name-input-label input[type="text"] {
-            width: 240px;
-        }
+    .modal-wrapper .name-input-label input[type="text"] {
+        width: 240px;
+    }
 
-        .custom-image-upload {
-            width: 90px;
-            height: 60px;
-            border-radius: 10px;
-        }
 
-        button {
-            width: 130px;
-            margin-top: 20px;
-        }
+    .modal-wrapper button {
+        width: 130px;
+        margin-top: 20px;
+    }
 
-        .button-wrapper {
-            margin-left: 15px;
-            width: 290px;
-        }
+    .modal-wrapper .button-wrapper {
+        margin-left: 15px;
+        width: 290px;
     }
 }
+
+@media screen and (max-height: 300px) {
+    .modal-wrapper .modal-view {
+        height: 80%;
+    }
+
+    .modal-wrapper .custom-image-upload {
+        width: 180px;
+        height: 120px;
+    }
+}
+
 

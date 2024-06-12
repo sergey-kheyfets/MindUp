@@ -151,93 +151,89 @@
 
 
 @media screen and (max-width: 680px) {
-    .modal-wrapper.add {
-        .modal-view {
-            width: 500px;
-        }
+    .modal-wrapper.add .modal-view {
+        width: 500px;
+    }
 
-        .name-input-label input[type="text"] {
-            width: 420px;
-        }
+    .modal-wrapper.add .name-input-label input[type="text"] {
+        width: 420px;
+    }
 
-        .modal-content-wrapper {
-            width: 480px;
-            overflow-x: hidden;
-            padding: 0 0 0 30px;
-        }
+    .modal-wrapper.add .modal-content-wrapper {
+        width: 480px;
+        overflow-x: hidden;
+        padding: 0 0 0 30px;
+    }
 
-        .tags {
-            width: 450px;
-        }
+    .modal-wrapper.add .tags {
+        width: 450px;
+    }
 
-        .members-limit {
-            gap: 25px;
-        }
+    .modal-wrapper.add .members-limit {
+        gap: 25px;
+    }
 
-        .datetime-place-info {
-            flex-direction: column;
-            width: 450px;
-            gap: 10px;
-        }
+    .modal-wrapper.add .datetime-place-info {
+        flex-direction: column;
+        width: 450px;
+        gap: 10px;
+    }
 
-        textarea {
-            width: 400px;
-        }
+    .modal-wrapper.add textarea {
+        width: 400px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .modal-wrapper.add {
-        .modal-view {
-            height: 80%;
-            width: 290px;
-            padding: 15px 25px 25px 10px;
-        }
+    .modal-wrapper.add .modal-view {
+        height: 80%;
+        width: 290px;
+        padding: 15px 25px 25px 10px;
+    }
 
-        .name-input-label input[type="text"] {
-            width: 240px;
-        }
+    .modal-wrapper.add .name-input-label input[type="text"] {
+        width: 240px;
+    }
 
-        .modal-content-wrapper {
-            width: 270px;
-            overflow-x: hidden;
-            padding: 0 0 0 30px;
-        }
+    .modal-wrapper.add .modal-content-wrapper {
+        width: 270px;
+        overflow-x: hidden;
+        padding: 0 0 0 30px;
+    }
 
-        .tags {
-            width: 250px;
-        }
+    .modal-wrapper.add .tags {
+        width: 250px;
+    }
 
-        .members-limit {
-            gap: 5px;
-            flex-direction: column;
-            align-items: start;
-        }
+    .modal-wrapper.add .members-limit {
+        gap: 5px;
+        flex-direction: column;
+        align-items: start;
+    }
 
-        .datetime-place-info {
-            flex-direction: column;
-            width: 240px;
-            gap: 10px;
-        }
+    .modal-wrapper.add .datetime-place-info {
+        flex-direction: column;
+        width: 240px;
+        gap: 10px;
+    }
 
-        textarea {
-            width: 200px;
-        }
+    .modal-wrapper.add textarea {
+        width: 200px;
+    }
 
-        .reloadImage {
-            top: 7px;
-            right: -15px;
-        }
+    .modal-wrapper.add .reloadImage {
+        top: 7px;
+        right: -15px;
+    }
 
-        button {
-            width: 130px;
-            margin-top: 20px;
-        }
+    .modal-wrapper.add button {
+        width: 130px;
+        margin-top: 20px;
+    }
 
-        .button-wrapper {
-            margin-left: 15px;
-            width: 290px;
-        }
+    .modal-wrapper.add .button-wrapper {
+        margin-left: 15px;
+        width: 290px;
     }
 }
 
