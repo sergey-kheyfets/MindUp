@@ -79,6 +79,11 @@
 }
 
 
+.modal-view .button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 380px
+}
 
 .modal-view button {
     height: 40px;

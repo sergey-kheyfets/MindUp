@@ -40,3 +40,62 @@
 .custom-image-upload h3:hover {
     box-shadow: 0 3px 10px rgba(19, 19, 19, 0.63);
 }
+
+@media screen and (max-width: 1200px) {
+    .modal-wrapper .modal-view {
+        height: 80%;
+    }
+
+    .modal-wrapper .custom-image-upload {
+        width: 300px;
+        height: 200px;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .modal-wrapper {
+        .modal-view {
+            width: 500px;
+        }
+
+        .name-input-label input[type="text"] {
+            width: 420px;
+        }
+
+        .custom-image-upload {
+            width: 180px;
+            height: 120px;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .modal-wrapper {
+        .modal-view {
+            height: 80%;
+            width: 290px;
+        }
+
+        .name-input-label input[type="text"] {
+            width: 240px;
+        }
+
+        .custom-image-upload {
+            width: 90px;
+            height: 60px;
+            border-radius: 10px;
+        }
+
+        button {
+            width: 130px;
+            margin-top: 20px;
+        }
+
+        .button-wrapper {
+            margin-left: 15px;
+            width: 290px;
+        }
+    }
+}
+
