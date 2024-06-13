@@ -1,6 +1,6 @@
 checkAuthorization();
 
-
+const groupsBody = document.querySelector('body');
 const modalAdd = document.getElementById('modal-add');
 const imageLoad = document.getElementById('group-image-upload');
 const modalImageUpload = document.querySelector('.modal-view').querySelector('.custom-image-upload');
@@ -9,6 +9,7 @@ const modalImageReloadText = modalImageUpload.querySelector('h3');
 function openModal() {
     modalAdd.style.opacity = 1;
     modalAdd.style.pointerEvents = 'auto';
+    groupsBody.style.overflow = 'hidden';
 }
 
 function closeModal() {
@@ -16,6 +17,7 @@ function closeModal() {
     modalAdd.style.pointerEvents = 'none';
     setTimeout(() => {modalImageUpload.style.backgroundImage = 'url("site_images/upload_image.svg")';}, 100);
     modalImageReloadText.style.opacity = 0;
+    groupsBody.style.overflow = 'auto';
 }
 
 document.querySelector('.block.group.add').onclick = openModal;

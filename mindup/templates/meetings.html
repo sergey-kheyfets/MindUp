@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Встречи</title>
-    <link rel="stylesheet" href="meetings.css">
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="modals_main.css">
     <link rel="stylesheet" href="blocks.css">
     <link rel="stylesheet" href="meetings_blocks.css">
+    <link rel="stylesheet" href="meetings.css">
+    <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="meetings_modal_add.css">
     <link rel="stylesheet" href="meetings_modal_info.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
@@ -52,9 +53,9 @@
             <div class="block add">Добавить встречу</div>
         </div>
     </div>
-    <div class="modal-wrapper" id="modal-add">
+    <div class="modal-wrapper add" id="modal-add">
         <div class="modal-blackout"></div>
-        <div class="modal-view">
+        <div class="modal-view add">
             <form action="/api/send_meeting" method="post" enctype="multipart/form-data">
                 <img src="/site_images/reload.svg" class="reloadImage" alt="reload" onclick="reloadForm()">
                 <label class="display-none-input">
@@ -63,7 +64,7 @@
                 <label class="name-input-label">
                     <input type="text" name="name" placeholder="Введите название встречи" maxlength="35" required>
                 </label>
-                <div class="modal-add-content-wrapper">
+                <div class="modal-content-wrapper">
                     <div class="tags">
                         <p class="tags-add-hint">Добавить тег</p>
                         <div class="tag" id="addTag">+</div>
@@ -85,14 +86,14 @@
                             Ограничить количество участников
                         </label>
                         <label>
-                            <input type="number" name="max_members_number" placeholder="0" min=2 id="member_limit" disabled>
+                            <input type="number" name="max_members_number" placeholder="0" min=2 max=99999 id="member_limit" disabled>
                         </label>
                     </div>
                     <label>
                         <textarea name="description" placeholder="Описание встречи"></textarea>
                     </label>
                 </div>
-                <div style="display: flex; justify-content: space-between; width: 380px">
+                <div class="button-wrapper">
                     <button type="button" onclick="closeModal()" style="background: rgb(171,171,171);">Отмена</button>
                     <button type="submit">Создать</button>
                 </div>
@@ -102,14 +103,14 @@
     <div class="modal-wrapper info" id="modal-info">
         <div class="container">
             <div class="modal-blackout"></div>
-            <div class="modal-view">
+            <div class="modal-view info">
                 <h1>Базы данных, разбор дз</h1>
                 <div class="datetime-place-info">
                     <div class="time">22:22 02.02.22</div>
                     <div class="place">Online</div>
                 </div>
                 <div class="groupNameInfo"></div>
-                <div class="modal-add-content-wrapper">
+                <div class="modal-content-wrapper">
                     <div class="tags">
                         <div class="tag">#123</div>
                     </div>

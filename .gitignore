@@ -3,4 +3,3 @@
 mindupback/mindup/__pycache__*
 mindupback/__pycache__*
 *.pyc
-db.sqlite3
