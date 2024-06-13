@@ -27,6 +27,7 @@
 .modal-wrapper.info .modal-content-wrapper .tags {
     justify-content: left;
     width: inherit;
+    gap: 5px;
 }
 
 .modal-wrapper.info .tag {
