@@ -30,6 +30,10 @@ def my_decorator(is_user_required=False, rickroll=False):
             request.prev_from_url = get_from_address(prev_url)
 
             is_entry = is_entry_url(url)
+            prev_is_entry = is_entry_url(prev_url)
+
+            if is_entry and prev_is_entry and request.prev_from_url != "" and request.from_url=="":
+                return HttpResponseRedirect(f"{url}?from={request.prev_from_url}")
             if user is None and is_user_required:
                 if not is_entry:
                     return HttpResponseRedirect(f"/mindup/authorisation?from={url}")
