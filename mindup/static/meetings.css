@@ -41,3 +41,14 @@ body {
     font-weight: 500;
     box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.2);
 }
+
+
+/* Стили модальных окон */
+.modal-content-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
