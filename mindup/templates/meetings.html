@@ -62,7 +62,7 @@
                     <input type="text" name="organization_id" id="meetingAddOrgId">
                 </label>
                 <label class="name-input-label">
-                    <input type="text" name="name" placeholder="Введите название встречи" maxlength="35" pattern="\w+.*" required>
+                    <input type="text" name="name" placeholder="Введите название встречи" maxlength="35" pattern="[\wА-Яа-я]+.*" required>
                 </label>
                 <div class="modal-content-wrapper">
                     <div class="tags">
@@ -77,7 +77,7 @@
                             <input type="time" name="time" required>
                         </label>
                         <label>
-                            <input type="text" name="place" placeholder="Место" maxlength="35" pattern="\w+.*" required>
+                            <input type="text" name="place" placeholder="Место" maxlength="35" pattern="[\wА-Яа-я]+.*" required>
                         </label>
                     </div>
                     <div class="members-limit">
