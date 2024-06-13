@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Встречи</title>
+    <link rel="stylesheet" href="modals_main.css">
+    <link rel="stylesheet" href="blocks.css">
+    <link rel="stylesheet" href="meetings_blocks.css">
+    <link rel="stylesheet" href="meetings.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="meetings_modal_add.css">
+    <link rel="stylesheet" href="meetings_modal_info.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+</head>
+<body>
+    <header>
+        <div class="menuGroup">
+            <div class="logo">MindUp</div>
+        </div>
+        <div class="menuGroup">
+            <a href="groups.html" class="groupsLink">Группы</a>
+            <a href="meetings.html" class="meetings">Все встречи</a>
+            <div class="search">
+                <form>
+                    <label>
+                        <input type="text" placeholder="Поиск" id="searchInput" onkeypress="handleKeyPress(event)">
+                    </label>
+                    <button type="button" class="searchButton" onclick="searchInMeetings()">
+                        <img src="site_images/search.svg" alt="search" width="21px">
+                    </button>
+                </form>
+            </div>
+        </div>
+        <button class="menuGroup profile" onclick="openProfileInfo()">
+            <img src="site_images/profile.svg" alt="Profile" class="profile-svg">
+            <p>Профиль</p>
+        </button>
+        <div class="profile-info-container">
+            <p id="profileName">Рыбин Илья Байденович</p>
+            <div class="profile-additional-info">
+                <p id="profileEmail">Email: bebra.com</p>
+                <p id="profilePubDate" style="font-size: 1em; margin-bottom: -5px">Зарегистрирован: 2024-05-08 17:07:08</p>
+            </div>
+            <a href="authorisation.html">Выйти</a>
+        </div>
+    </header>
+    <div class="background-container">
+        <div class="background-dimmer"></div>
+    </div>
+    <div class="source-group-name">ФИИТ</div>
+    <div class="blocks-wrapper">
+        <div class="blocks">
+            <div class="block add">Добавить встречу</div>
+        </div>
+    </div>
+    <div class="modal-wrapper add" id="modal-add">
+        <div class="modal-blackout"></div>
+        <div class="modal-view add">
+            <form action="/api/send_meeting" method="post" enctype="multipart/form-data">
+                <img src="/site_images/reload.svg" class="reloadImage" alt="reload" onclick="reloadForm()">
+                <label class="display-none-input">
+                    <input type="text" name="organization_id" id="meetingAddOrgId">
+                </label>
+                <label class="name-input-label">
+                    <input type="text" name="name" placeholder="Введите название встречи" maxlength="35" required>
+                </label>
+                <div class="modal-content-wrapper">
+                    <div class="tags">
+                        <p class="tags-add-hint">Добавить тег</p>
+                        <div class="tag" id="addTag">+</div>
+                    </div>
+                    <div class="datetime-place-info">
+                        <label>
+                            <input type="date" name="date" required>
+                        </label>
+                        <label>
+                            <input type="time" name="time" required>
+                        </label>
+                        <label>
+                            <input type="text" name="place" placeholder="Место" maxlength="35" required>
+                        </label>
+                    </div>
+                    <div class="members-limit">
+                        <label>
+                            <input type="checkbox" value=True name="is_max_members_number_limited" id="max_members_number_input">
+                            Ограничить количество участников
+                        </label>
+                        <label>
+                            <input type="number" name="max_members_number" placeholder="0" min=2 max=99999 id="member_limit" disabled>
+                        </label>
+                    </div>
+                    <label>
+                        <textarea name="description" placeholder="Описание встречи"></textarea>
+                    </label>
+                </div>
+                <div class="button-wrapper">
+                    <button type="button" onclick="closeModal()" style="background: rgb(171,171,171);">Отмена</button>
+                    <button type="submit">Создать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-wrapper info" id="modal-info">
+        <div class="container">
+            <div class="modal-blackout"></div>
+            <div class="modal-view info">
+                <h1>Базы данных, разбор дз</h1>
+                <div class="datetime-place-info">
+                    <div class="time">22:22 02.02.22</div>
+                    <div class="place">Online</div>
+                </div>
+                <div class="groupNameInfo"></div>
+                <div class="modal-content-wrapper">
+                    <div class="tags">
+                        <div class="tag">#123</div>
+                    </div>
+                    <div class="description">
+                        Попробуем придумать идеи проектов, обсудить, насколько они хороши, доработать их
+                    </div>
+                    <div class="members-info">Участники 7/15</div>
+                    <div class="members-wrapper">
+                        <div class="member">Иьлья Рыбин</div>
+                        <div class="member">Степан Кучин</div>
+                        <div class="member">Байден Дмитрий</div>
+                    </div>
+                </div>
+                <button onclick="closeModalInfo()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    <script src="network.js"></script>
+    <script src="header_controller.js"></script>
+    <script src="block_controller.js"></script>
+    <script src="meetings.js"></script>
+    <script src="meetings_modal_add.js"></script>
+    <script src="meetings_modal_info.js"></script>
+    <script src="backend_meetings.js"></script>
+    <script src="backend_header.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+.name-input-label::after {
+    content: "До 18 символов";
+}
+
+.modal-view input[type="file"] {
+    display: none;
+}
+
+.custom-image-upload {
+    display: block;
+    position: relative;
+    width: 420px;
+    height: 280px;
+    background-color: #FFFFFF;
+    background-image: url("site_images/upload_image.svg");
+    box-shadow: 0 3px 5px rgba(42, 42, 42, 0.2);
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.custom-image-upload h3 {
+    opacity: 0;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Fira, sans-serif;
+    font-weight: normal;
+    background-color: #FFFFFF;
+    padding: 10px 15px;
+    border-radius: 15px;
+    box-shadow: 0 3px 7px rgba(42, 42, 42, 0.4);
+    transition: opacity 0.7s ease, box-shadow 0.2s linear;
+    min-width: max-content;
+    cursor: pointer;
+}
+
+.custom-image-upload h3:hover {
+    box-shadow: 0 3px 10px rgba(19, 19, 19, 0.63);
+}
+
+@media screen and (max-width: 1200px) {
+    .modal-wrapper .modal-view {
+        height: 80%;
+    }
+
+    .modal-wrapper .custom-image-upload {
+        width: 300px;
+        height: 200px;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .modal-wrapper .modal-view {
+        width: 500px;
+    }
+
+    .modal-wrapper .name-input-label input[type="text"] {
+        width: 420px;
+    }
+
+    .modal-wrapper .custom-image-upload {
+        width: 255px;
+        height: 170px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .modal-wrapper .modal-view {
+        height: 320px;
+        width: 290px;
+    }
+
+    .modal-wrapper .name-input-label input[type="text"] {
+        width: 240px;
+    }
+
+
+    .modal-wrapper button {
+        width: 130px;
+        margin-top: 20px;
+    }
+
+    .modal-wrapper .button-wrapper {
+        margin-left: 15px;
+        width: 290px;
+    }
+}
+
+@media screen and (max-height: 300px) {
+    .modal-wrapper .modal-view {
+        height: 80%;
+    }
+
+    .modal-wrapper .custom-image-upload {
+        width: 180px;
+        height: 120px;
+    }
+}
+
+
