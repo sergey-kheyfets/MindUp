@@ -31,7 +31,10 @@ def index(request):
     return HttpResponseRedirect("/mindup/authorisation")
 
 
+@my_decorator()
 def login_post(request):
+    to_url = "/mindup/groups" if request.prev_from_url == "" else request.prev_from_url
+    print(to_url)
     print(request.POST)
     email = request.POST['email']
     password = request.POST['password']
@@ -41,13 +44,14 @@ def login_post(request):
     if not guests[0].check_password(password):
         return HttpResponse("incorrect password")
     guest = guests[0]
-    response = HttpResponseRedirect("/mindup/groups")
+    response = HttpResponseRedirect(to_url)
 
     set_user_to_cookie(guest, response)
 
     return response
 
 
+@my_decorator()
 def register_post(request):
     user_name = request.POST['userName']
     sur_name = request.POST['sur_name']
@@ -69,7 +73,8 @@ def register_post(request):
 @my_decorator()
 def my_groups(request):
     return JsonResponse({'result':
-                             [organization.to_dict() for organization in Organization.objects.filter(members=request.user.id)]})
+                             [organization.to_dict() for organization in
+                              Organization.objects.filter(members=request.user.id)]})
 
 
 @my_decorator()
@@ -119,7 +124,7 @@ def all_meetings(request):
 
 @my_decorator()
 def my_meetings(request):
-    guest =request.user
+    guest = request.user
     return JsonResponse({'result':
                              [meeting.to_dict() for meeting in Meeting.objects.filter(members=guest)]})
 
@@ -127,7 +132,7 @@ def my_meetings(request):
 @my_decorator()
 def group_about(request, group_id):
     guest = request.user
-    return JsonResponse({'result':  Organization.objects.get(id=group_id).to_dict(guest)})
+    return JsonResponse({'result': Organization.objects.get(id=group_id).to_dict(guest)})
 
 
 @my_decorator()
@@ -230,6 +235,9 @@ def send_meeting(request):
 @my_decorator()
 def signup_meeting(request, group_id, meeting_id):
     meeting = Meeting.objects.get(id=meeting_id)
+    if meeting.is_max_members_number_limited:
+        if meeting.max_members_number <= len(meeting.members.all()):
+            return JsonResponse({'result': 'suck'})
     meeting.members.add(request.user)
     meeting.save()
     return JsonResponse({'result': 'success'})

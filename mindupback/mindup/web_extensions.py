@@ -5,14 +5,34 @@ from . import jwt_for_cookie
 from .models import Guest, Organization, Meeting, MeetingTag
 
 
+def is_entry_url(url):
+    return "/authorisation" in url or "/registration" in url
+
+
+def get_from_address(url):
+    if "?from=" in url:
+        from_url = url[url.index("?from=") + 6:]
+    else:
+        from_url = ""
+    return from_url
+
+
 def my_decorator(is_user_required=False, rickroll=False):
     def extract_user_decorator(func):
         def result(request, *args, **kwargs):
             user = get_user_from_cookie(request)
+            url = request.build_absolute_uri()
+            if 'HTTP_REFERER' in request.META:
+                prev_url = request.META['HTTP_REFERER']
+            else:
+                prev_url = ""
+            request.from_url = get_from_address(url)
+            request.prev_from_url = get_from_address(prev_url)
+
+            is_entry = is_entry_url(url)
             if user is None and is_user_required:
-                url = request.build_absolute_uri()
-                if "/authorisation" not in url and "/registration" not in url:
-                    return HttpResponseRedirect("/mindup/authorisation")
+                if not is_entry:
+                    return HttpResponseRedirect(f"/mindup/authorisation?from={url}")
             elif user is not None and user.last_name == "zv" and rickroll:
                 return HttpResponseRedirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
             request.user = user
