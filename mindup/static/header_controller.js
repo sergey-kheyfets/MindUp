@@ -1,4 +1,4 @@
-const searchInput = document.getElementById('searchInput');
+const searchInput = document.getElementById('searchTextInput');
 const profileInfo = document.querySelector('.profile-info-container');
 let isProfileOpened = false;
 

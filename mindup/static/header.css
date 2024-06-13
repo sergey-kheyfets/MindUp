@@ -27,6 +27,7 @@ input:-webkit-autofill:active {
     background: none;
     font-family: "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
     font-size: 1em;
+    cursor: pointer;
 }
 
 .profile-info-container {

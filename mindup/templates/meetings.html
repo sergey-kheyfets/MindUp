@@ -23,7 +23,7 @@
             <div class="search">
                 <form>
                     <label>
-                        <input type="text" placeholder="Поиск" id="searchInput" onkeypress="handleKeyPress(event)">
+                        <input type="text" placeholder="Поиск" id="searchTextInput" onkeypress="handleKeyPress(event)">
                     </label>
                     <button type="button" class="searchButton" onclick="searchInMeetings()">
                         <img src="site_images/search.svg" alt="search" width="21px">
@@ -62,7 +62,7 @@
                     <input type="text" name="organization_id" id="meetingAddOrgId">
                 </label>
                 <label class="name-input-label">
-                    <input type="text" name="name" placeholder="Введите название встречи" maxlength="35" required>
+                    <input type="text" name="name" placeholder="Введите название встречи" maxlength="35" pattern="\w+.*" required>
                 </label>
                 <div class="modal-content-wrapper">
                     <div class="tags">
@@ -77,7 +77,7 @@
                             <input type="time" name="time" required>
                         </label>
                         <label>
-                            <input type="text" name="place" placeholder="Место" maxlength="35" required>
+                            <input type="text" name="place" placeholder="Место" maxlength="35" pattern="\w+.*" required>
                         </label>
                     </div>
                     <div class="members-limit">
