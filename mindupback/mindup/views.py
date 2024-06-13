@@ -164,7 +164,6 @@ def send_group(request):
     return HttpResponseRedirect(f"/meetings.html?group={o.id}&title={o.title}")
 
 
-@my_decorator()
 def get_tag(tag_name):
     if tag_name[0] != '#':
         tag_name = '#' + tag_name
