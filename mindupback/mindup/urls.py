@@ -3,6 +3,8 @@ from django.urls import path, re_path
 from . import views, file_views
 
 urlpatterns = [
+    path("api/cookie", views.show_cookie),
+
     path("", views.index, name="index"),
     path("login", views.login_post, name="login"),
     path("register", views.register_post, name="register"),

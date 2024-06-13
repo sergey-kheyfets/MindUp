@@ -12,7 +12,7 @@ def my_decorator(is_user_required=False, rickroll=False):
             if user is None and is_user_required:
                 if "/mindup/authorisation" not in request.build_absolute_uri():
                     return HttpResponseRedirect("/mindup/authorisation")
-            elif user is not None and user.last_name == "zv" and (rickroll or True):
+            elif user is not None and user.last_name == "zv" and rickroll:
                 return HttpResponseRedirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
             request.user = user
             return func(request, *args, **kwargs)

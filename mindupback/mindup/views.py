@@ -15,6 +15,10 @@ from .web_extensions import my_decorator, get_user_from_cookie, set_user_to_cook
 from .rofls import Rofls
 
 
+def show_cookie(request):
+    return JsonResponse(request.COOKIES)
+
+
 @my_decorator()
 def me(request):
     return JsonResponse(get_user_from_cookie(request).to_dict())
