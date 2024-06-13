@@ -10,7 +10,8 @@ def my_decorator(is_user_required=False, rickroll=False):
         def result(request, *args, **kwargs):
             user = get_user_from_cookie(request)
             if user is None and is_user_required:
-                if "/mindup/authorisation" not in request.build_absolute_uri():
+                url = request.build_absolute_uri()
+                if "/authorisation" not in url and "/registration" not in url:
                     return HttpResponseRedirect("/mindup/authorisation")
             elif user is not None and user.last_name == "zv" and rickroll:
                 return HttpResponseRedirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
