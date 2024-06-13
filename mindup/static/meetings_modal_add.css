@@ -47,7 +47,7 @@
     background-color: #026228;
 }
 
-.modal-view .modal-content-wrapper .tag {
+.modal-view.add .modal-content-wrapper .tag {
     width: 100px;
 }
 
